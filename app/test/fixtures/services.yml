@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  equipments: one
+  company: one
+  costumer: 
+  done_at: 2018-01-16
+  next_service: 2018-01-16
+
+two:
+  name: MyString
+  equipments: two
+  company: two
+  costumer: 
+  done_at: 2018-01-16
+  next_service: 2018-01-16
