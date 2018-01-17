@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180116124826) do
+ActiveRecord::Schema.define(version: 20180117135646) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,8 +22,6 @@ ActiveRecord::Schema.define(version: 20180116124826) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "equipment_id"
-    t.index ["equipment_id"], name: "index_companies_on_equipment_id"
   end
 
   create_table "costumers", force: :cascade do |t|
@@ -31,12 +29,15 @@ ActiveRecord::Schema.define(version: 20180116124826) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "kind"
+    t.string "register_code"
   end
 
   create_table "equipment", force: :cascade do |t|
     t.string "type"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "plate"
   end
 
   create_table "services", force: :cascade do |t|
@@ -48,12 +49,12 @@ ActiveRecord::Schema.define(version: 20180116124826) do
     t.date "next_service"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "cost"
     t.index ["company_id"], name: "index_services_on_company_id"
     t.index ["costumer_id"], name: "index_services_on_costumer_id"
     t.index ["equipment_id"], name: "index_services_on_equipment_id"
   end
 
-  add_foreign_key "companies", "equipment"
   add_foreign_key "services", "companies"
   add_foreign_key "services", "costumers"
   add_foreign_key "services", "equipment"
