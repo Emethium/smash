@@ -7,21 +7,21 @@
             <b-card no-body class="p-4">
               <b-card-body>
                 <h1>Login</h1>
-                <p class="text-muted">Sign In to your account</p>
+                <p class="text-muted">Entre com os seus dados de acesso</p>
                 <b-input-group class="mb-3">
                   <div class="input-group-prepend"><span class="input-group-text"><i class="icon-user"></i></span></div>
-                  <input type="text" class="form-control" placeholder="Username">
+                  <input type="text" class="form-control" placeholder="Nome de usuário">
                 </b-input-group>
                 <b-input-group class="mb-4">
                   <div class="input-group-prepend"><span class="input-group-text"><i class="icon-lock"></i></span></div>
-                  <input type="password" class="form-control" placeholder="Password">
+                  <input type="password" class="form-control" placeholder="Senha">
                 </b-input-group>
                 <b-row>
                   <b-col cols="6">
                     <b-button variant="primary" class="px-4">Login</b-button>
                   </b-col>
                   <b-col cols="6" class="text-right">
-                    <b-button variant="link" class="px-0">Forgot password?</b-button>
+                    <b-button variant="link" class="px-0">Esqueceu a senha?</b-button>
                   </b-col>
                 </b-row>
               </b-card-body>
@@ -30,8 +30,8 @@
               <b-card-body class="text-center">
                 <div>
                   <h2>Sign up</h2>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                  <b-button variant="primary" class="active mt-3">Register Now!</b-button>
+                  <p>Deseja criar uma nova conta?</p>
+                  <b-button variant="primary" class="active mt-3">Cadastre agora!</b-button>
                 </div>
               </b-card-body>
             </b-card>

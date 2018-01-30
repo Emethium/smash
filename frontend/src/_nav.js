@@ -1,13 +1,110 @@
 export default {
   items: [
     {
-      name: 'Dashboard',
+      name: 'Página inicial',
       url: '/dashboard',
-      icon: 'icon-speedometer',
+      icon: 'icon-globe',
       badge: {
-        variant: 'primary',
-        text: 'NEW'
+        variant: 'primary'
       }
+    },
+    {
+      name: 'Clientes',
+      url: '/buttons',
+      icon: 'icon-people',
+      children: [
+        {
+          name: 'Buscar cliente',
+          url: '/buttons/dropdowns',
+          icon: 'icon-magnifier'
+        },
+        {
+          name: 'Cadastro de pessoa física',
+          url: '/buttons/standard-buttons',
+          icon: 'icon-user'
+        },
+        {
+          name: 'Cadastro de pessoa jurídica',
+          url: '/buttons/button-groups',
+          icon: 'icon-briefcase'
+        }
+      ]
+    },
+    {
+      name: 'Equipamentos',
+      url: '/buttons',
+      icon: 'fa fa-automobile fa-lg mt-2',
+      children: [
+        {
+          name: 'Buscar veículo',
+          url: '/buttons/dropdowns',
+          icon: 'icon-magnifier'
+        },
+        {
+          name: 'Cadastro de equipamento',
+          url: '/buttons/standard-buttons',
+          icon: 'fa fa-bus fa-lg mt-2'
+        },
+        {
+          name: 'Cadastro de novo tipo',
+          url: '/buttons/standard-buttons',
+          icon: 'fa fa-info-circle fa-lg mt-2'
+        },
+        {
+          name: 'Gerir tipos de equipamento',
+          url: '/buttons/standard-buttons',
+          icon: 'fa fa-legal fa-lg mt-2'
+        }
+      ]
+    },
+    {
+      name: 'Filiais',
+      url: '/buttons',
+      icon: 'fa fa-industry fa-lg mt-2',
+      children: [
+        {
+          name: 'Listagem de filiais',
+          url: '/buttons/dropdowns',
+          icon: 'fa fa-list-alt fa-lg mt-2'
+        },
+        {
+          name: 'Cadastro de filial',
+          url: '/buttons/standard-buttons',
+          icon: 'fa fa-institution fa-lg mt-2'
+        }
+      ]
+    },
+    {
+      name: 'Serviços',
+      url: '/buttons',
+      icon: 'fa fa-handshake-o fa-lg mt-2',
+      children: [
+        {
+          name: 'Consulta de serviço',
+          url: '/buttons/dropdowns',
+          icon: 'icon-magnifier'
+        },
+        {
+          name: 'Histórico de serviços',
+          url: '/buttons/dropdowns',
+          icon: 'fa fa-hourglass-o fa-lg mt-2'
+        },
+        {
+          name: 'Submeter novo serviço',
+          url: '/buttons/standard-buttons',
+          icon: 'fa fa-briefcase fa-lg mt-2'
+        },
+        {
+          name: 'Cadastro de tipo de serviço',
+          url: '/buttons/standard-buttons',
+          icon: 'fa fa-info-circle fa-lg mt-2'
+        },
+        {
+          name: 'Gerir tipos de serviço',
+          url: '/buttons/standard-buttons',
+          icon: 'fa fa-legal fa-lg mt-2'
+        }
+      ]
     },
     {
       title: true,
