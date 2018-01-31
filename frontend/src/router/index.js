@@ -57,6 +57,9 @@ import ClientSearch from '@/views/clients/ClientSearch'
 import ClientFormPhysical from '@/views/clients/ClientFormPhysical'
 import ClientFormJuridic from '@/views/clients/ClientFormJuridic'
 
+// Views - Vehicles
+import VehicleSearch from '@/views/vehicles/VehicleSearch'
+
 Vue.use(Router)
 
 export default new Router({
@@ -97,11 +100,31 @@ export default new Router({
               path: 'juridic-form',
               name: 'Cadastro de Pessoas Jurídicas',
               component: ClientFormJuridic
+            }
+          ]
+        },
+        {
+          path: 'vehicles',
+          redirect: '/vehicles/vehicles',
+          name: 'Veículos',
+          component: {
+            render (c) { return c('router-view') }
+          },
+          children: [
+            {
+              path: 'vehicle-search',
+              name: 'Buscar Veículos',
+              component: VehicleSearch
             },
             {
-              path: 'social-buttons',
-              name: 'Social Buttons',
-              component: SocialButtons
+              path: 'physical-form',
+              name: 'Cadastro de Pessoas Físicas',
+              component: ClientFormPhysical
+            },
+            {
+              path: 'juridic-form',
+              name: 'Cadastro de Pessoas Jurídicas',
+              component: ClientFormJuridic
             }
           ]
         },

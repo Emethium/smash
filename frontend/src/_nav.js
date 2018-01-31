@@ -37,7 +37,7 @@ export default {
       children: [
         {
           name: 'Buscar veículo',
-          url: '/buttons/dropdowns',
+          url: '/vehicles/vehicle-search',
           icon: 'icon-magnifier'
         },
         {
