@@ -10,22 +10,22 @@ export default {
     },
     {
       name: 'Clientes',
-      url: '/buttons',
+      url: '/clients',
       icon: 'icon-people',
       children: [
         {
           name: 'Buscar cliente',
-          url: '/buttons/dropdowns',
+          url: '/clients/client-search',
           icon: 'icon-magnifier'
         },
         {
           name: 'Cadastro de pessoa física',
-          url: '/buttons/standard-buttons',
+          url: '/clients/physical',
           icon: 'icon-user'
         },
         {
           name: 'Cadastro de pessoa jurídica',
-          url: '/buttons/button-groups',
+          url: '/clients/juridic',
           icon: 'icon-briefcase'
         }
       ]
@@ -337,19 +337,6 @@ export default {
           icon: 'icon-star'
         }
       ]
-    },
-    {
-      name: 'Download CoreUI',
-      url: 'http://coreui.io/vue/',
-      icon: 'icon-cloud-download',
-      class: 'mt-auto',
-      variant: 'success'
-    },
-    {
-      name: 'Try CoreUI PRO',
-      url: 'http://coreui.io/pro/vue/',
-      icon: 'icon-layers',
-      variant: 'danger'
     }
   ]
 }

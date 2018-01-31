@@ -52,6 +52,9 @@ import Page500 from '@/views/pages/Page500'
 import Login from '@/views/pages/Login'
 import Register from '@/views/pages/Register'
 
+// Views - Clients
+import ClientSearch from '@/views/clients/ClientSearch'
+
 Vue.use(Router)
 
 export default new Router({
@@ -69,6 +72,36 @@ export default new Router({
           path: 'dashboard',
           name: 'Dashboard',
           component: Dashboard
+        },
+        {
+          path: 'clients',
+          redirect: '/clients/clients',
+          name: 'Clientes',
+          component: {
+            render (c) { return c('router-view') }
+          },
+          children: [
+            {
+              path: 'client-search',
+              name: 'Buscar Clientes',
+              component: ClientSearch
+            },
+            {
+              path: 'button-groups',
+              name: 'Button Groups',
+              component: ButtonGroups
+            },
+            {
+              path: 'dropdowns',
+              name: 'Dropdowns',
+              component: Dropdowns
+            },
+            {
+              path: 'social-buttons',
+              name: 'Social Buttons',
+              component: SocialButtons
+            }
+          ]
         },
         {
           path: 'theme',
