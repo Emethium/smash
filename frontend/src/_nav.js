@@ -20,12 +20,12 @@ export default {
         },
         {
           name: 'Cadastro de pessoa física',
-          url: '/clients/physical',
+          url: '/clients/physical-form',
           icon: 'icon-user'
         },
         {
           name: 'Cadastro de pessoa jurídica',
-          url: '/clients/juridic',
+          url: '/clients/juridic-form',
           icon: 'icon-briefcase'
         }
       ]

@@ -54,6 +54,7 @@ import Register from '@/views/pages/Register'
 
 // Views - Clients
 import ClientSearch from '@/views/clients/ClientSearch'
+import ClientFormPhysical from '@/views/clients/ClientFormPhysical'
 
 Vue.use(Router)
 
@@ -87,9 +88,9 @@ export default new Router({
               component: ClientSearch
             },
             {
-              path: 'button-groups',
-              name: 'Button Groups',
-              component: ButtonGroups
+              path: 'physical-form',
+              name: 'Cadastro de Pessoas Físicas',
+              component: ClientFormPhysical
             },
             {
               path: 'dropdowns',

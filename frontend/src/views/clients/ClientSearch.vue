@@ -12,10 +12,10 @@
                     </b-form-group>
                     <b-form-group>
                         <label for="postal-code">CPF/CNPJ:</label>
-                        <b-form-input type="text" id="register-code" placeholder="Registro de pessoa física ou jurídica"></b-form-input>
+                        <b-form-input type="text" id="register-code" placeholder="Digite o registro de pessoa física ou jurídica"></b-form-input>
                     </b-form-group>
                     <b-form-group
-                        label="type"
+                        label="Tipo de Cliente:"
                         label-for="basicInlineCustomCheckboxes"
                         :label-cols="2"
                         :horizontal="true">
