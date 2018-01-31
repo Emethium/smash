@@ -59,6 +59,7 @@ import ClientFormJuridic from '@/views/clients/ClientFormJuridic'
 
 // Views - Vehicles
 import VehicleSearch from '@/views/vehicles/VehicleSearch'
+import VehicleTypeForm from '@/views/vehicles/VehicleTypeForm'
 
 Vue.use(Router)
 
@@ -122,9 +123,9 @@ export default new Router({
               component: ClientFormPhysical
             },
             {
-              path: 'juridic-form',
-              name: 'Cadastro de Pessoas Jurídicas',
-              component: ClientFormJuridic
+              path: 'type-form',
+              name: 'Cadastro de novo tipo de equipamento',
+              component: VehicleTypeForm
             }
           ]
         },

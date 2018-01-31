@@ -47,7 +47,7 @@ export default {
         },
         {
           name: 'Cadastro de novo tipo',
-          url: '/buttons/standard-buttons',
+          url: '/vehicles/type-form',
           icon: 'fa fa-info-circle fa-lg mt-2'
         },
         {
