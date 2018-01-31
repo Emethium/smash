@@ -55,6 +55,7 @@ import Register from '@/views/pages/Register'
 // Views - Clients
 import ClientSearch from '@/views/clients/ClientSearch'
 import ClientFormPhysical from '@/views/clients/ClientFormPhysical'
+import ClientFormJuridic from '@/views/clients/ClientFormJuridic'
 
 Vue.use(Router)
 
@@ -93,9 +94,9 @@ export default new Router({
               component: ClientFormPhysical
             },
             {
-              path: 'dropdowns',
-              name: 'Dropdowns',
-              component: Dropdowns
+              path: 'juridic-form',
+              name: 'Cadastro de Pessoas Jurídicas',
+              component: ClientFormJuridic
             },
             {
               path: 'social-buttons',
