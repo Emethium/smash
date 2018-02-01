@@ -42,7 +42,7 @@ export default {
         },
         {
           name: 'Cadastro de equipamento',
-          url: '/buttons/standard-buttons',
+          url: '/vehicles/vehicle-form',
           icon: 'fa fa-bus fa-lg mt-2'
         },
         {
