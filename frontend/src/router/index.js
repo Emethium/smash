@@ -61,6 +61,7 @@ import ClientFormJuridic from '@/views/clients/ClientFormJuridic'
 import VehicleSearch from '@/views/vehicles/VehicleSearch'
 import VehicleTypeForm from '@/views/vehicles/VehicleTypeForm'
 import VehicleForm from '@/views/vehicles/VehicleForm'
+import VehicleTypeList from '@/views/vehicles/VehicleTypeList'
 
 Vue.use(Router)
 
@@ -127,6 +128,11 @@ export default new Router({
               path: 'type-form',
               name: 'Cadastro de novo tipo de equipamento',
               component: VehicleTypeForm
+            },
+            {
+              path: 'type-list',
+              name: 'Gerir tipos de equipamento cadastrados',
+              component: VehicleTypeList
             }
           ]
         },

@@ -52,7 +52,7 @@ export default {
         },
         {
           name: 'Gerir tipos de equipamento',
-          url: '/buttons/standard-buttons',
+          url: '/vehicles/type-list',
           icon: 'fa fa-legal fa-lg mt-2'
         }
       ]
