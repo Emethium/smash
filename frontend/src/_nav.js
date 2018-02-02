@@ -96,7 +96,7 @@ export default {
         },
         {
           name: 'Cadastro de tipo de serviço',
-          url: '/buttons/standard-buttons',
+          url: '/services/type-form',
           icon: 'fa fa-info-circle fa-lg mt-2'
         },
         {

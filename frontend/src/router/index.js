@@ -69,6 +69,7 @@ import SubsidiaryForm from '@/views/subsidiaries/SubsidiaryForm'
 
 // Views - Services
 import ServiceSearch from '@/views/services/ServiceSearch'
+import ServiceTypeForm from '@/views/services/ServiceTypeForm'
 
 Vue.use(Router)
 
@@ -177,9 +178,9 @@ export default new Router({
               component: ServiceSearch
             },
             {
-              path: 'subsidiary-form',
-              name: 'Cadastro de nova filial',
-              component: SubsidiaryForm
+              path: 'type-form',
+              name: 'Cadastro de novo tipo de serviço',
+              component: ServiceTypeForm
             }
           ]
         },
