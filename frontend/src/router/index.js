@@ -65,6 +65,7 @@ import VehicleTypeList from '@/views/vehicles/VehicleTypeList'
 
 // Views - Subsidiaries
 import SubsidiaryList from '@/views/subsidiaries/SubsidiaryList'
+import SubsidiaryForm from '@/views/subsidiaries/SubsidiaryForm'
 
 Vue.use(Router)
 
@@ -155,7 +156,7 @@ export default new Router({
             {
               path: 'subsidiary-form',
               name: 'Cadastro de nova filial',
-              component: VehicleForm
+              component: SubsidiaryForm
             }
           ]
         },
