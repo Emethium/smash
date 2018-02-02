@@ -67,6 +67,9 @@ import VehicleTypeList from '@/views/vehicles/VehicleTypeList'
 import SubsidiaryList from '@/views/subsidiaries/SubsidiaryList'
 import SubsidiaryForm from '@/views/subsidiaries/SubsidiaryForm'
 
+// Views - Services
+import ServiceSearch from '@/views/services/ServiceSearch'
+
 Vue.use(Router)
 
 export default new Router({
@@ -152,6 +155,26 @@ export default new Router({
               path: 'subsidiary-list',
               name: 'Lista de Filiais',
               component: SubsidiaryList
+            },
+            {
+              path: 'subsidiary-form',
+              name: 'Cadastro de nova filial',
+              component: SubsidiaryForm
+            }
+          ]
+        },
+        {
+          path: 'services',
+          redirect: '/services/services',
+          name: 'Serviços',
+          component: {
+            render (c) { return c('router-view') }
+          },
+          children: [
+            {
+              path: 'service-search',
+              name: 'Consulta de Serviço',
+              component: ServiceSearch
             },
             {
               path: 'subsidiary-form',

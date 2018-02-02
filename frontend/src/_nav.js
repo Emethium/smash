@@ -76,12 +76,12 @@ export default {
     },
     {
       name: 'Serviços',
-      url: '/buttons',
+      url: '/services',
       icon: 'fa fa-handshake-o fa-lg mt-2',
       children: [
         {
           name: 'Consulta de serviço',
-          url: '/buttons/dropdowns',
+          url: '/services/service-search',
           icon: 'icon-magnifier'
         },
         {

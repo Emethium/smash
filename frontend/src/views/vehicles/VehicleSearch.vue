@@ -4,7 +4,10 @@
             <b-col md="6" class="mx-auto">
                 <b-card>
                     <div slot="header">
-                        <strong>Busca</strong> de Veículo
+                        <strong>Busca de Veículo </strong>
+                        <div class="badge badge-info badge-pill" v-b-popover.hover="'Os campos não preenchidos não serão utilizados na busca!'" title="Atenção!">
+                            <span class="fa fa-question"></span>
+                        </div>
                     </div>
                     <b-form-group>
                     <label for="name"><strong>Placa:</strong></label>
