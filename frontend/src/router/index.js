@@ -63,6 +63,9 @@ import VehicleTypeForm from '@/views/vehicles/VehicleTypeForm'
 import VehicleForm from '@/views/vehicles/VehicleForm'
 import VehicleTypeList from '@/views/vehicles/VehicleTypeList'
 
+// Views - Subsidiaries
+import SubsidiaryList from '@/views/subsidiaries/SubsidiaryList'
+
 Vue.use(Router)
 
 export default new Router({
@@ -133,6 +136,26 @@ export default new Router({
               path: 'type-list',
               name: 'Gerir tipos de equipamento cadastrados',
               component: VehicleTypeList
+            }
+          ]
+        },
+        {
+          path: 'subsidiaries',
+          redirect: '/subsidiaries/subsidiaries',
+          name: 'Filiais',
+          component: {
+            render (c) { return c('router-view') }
+          },
+          children: [
+            {
+              path: 'subsidiary-list',
+              name: 'Lista de Filiais',
+              component: SubsidiaryList
+            },
+            {
+              path: 'subsidiary-form',
+              name: 'Cadastro de nova filial',
+              component: VehicleForm
             }
           ]
         },

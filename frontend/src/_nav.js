@@ -32,7 +32,7 @@ export default {
     },
     {
       name: 'Equipamentos',
-      url: '/buttons',
+      url: '/vehicles',
       icon: 'fa fa-automobile fa-lg mt-2',
       children: [
         {
@@ -59,17 +59,17 @@ export default {
     },
     {
       name: 'Filiais',
-      url: '/buttons',
+      url: '/subsidiaries',
       icon: 'fa fa-industry fa-lg mt-2',
       children: [
         {
           name: 'Listagem de filiais',
-          url: '/buttons/dropdowns',
+          url: '/subsidiaries/subsidiary-list',
           icon: 'fa fa-list-alt fa-lg mt-2'
         },
         {
           name: 'Cadastro de filial',
-          url: '/buttons/standard-buttons',
+          url: '/subsidiaries/subsidiary-form',
           icon: 'fa fa-institution fa-lg mt-2'
         }
       ]
