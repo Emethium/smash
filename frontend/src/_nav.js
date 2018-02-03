@@ -101,7 +101,7 @@ export default {
         },
         {
           name: 'Gerir tipos de serviço',
-          url: '/buttons/standard-buttons',
+          url: '/services/type-list',
           icon: 'fa fa-legal fa-lg mt-2'
         }
       ]
