@@ -91,7 +91,7 @@ export default {
         },
         {
           name: 'Submeter novo serviço',
-          url: '/buttons/standard-buttons',
+          url: '/services/service-form',
           icon: 'fa fa-briefcase fa-lg mt-2'
         },
         {
