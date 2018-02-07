@@ -2,7 +2,7 @@ export default {
   items: [
     {
       name: 'Página inicial',
-      url: '/dashboard',
+      url: '/home',
       icon: 'icon-globe',
       badge: {
         variant: 'primary'
@@ -86,7 +86,7 @@ export default {
         },
         {
           name: 'Histórico de serviços',
-          url: '/buttons/dropdowns',
+          url: '/services/service-history',
           icon: 'fa fa-hourglass-o fa-lg mt-2'
         },
         {

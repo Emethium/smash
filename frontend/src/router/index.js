@@ -52,6 +52,9 @@ import Page500 from '@/views/pages/Page500'
 import Login from '@/views/pages/Login'
 import Register from '@/views/pages/Register'
 
+// View - Home
+import Home from '@/views/home/HomeView'
+
 // Views - Clients
 import ClientSearch from '@/views/clients/ClientSearch'
 import ClientFormPhysical from '@/views/clients/ClientFormPhysical'
@@ -72,6 +75,7 @@ import ServiceSearch from '@/views/services/ServiceSearch'
 import ServiceTypeForm from '@/views/services/ServiceTypeForm'
 import ServiceTypeList from '@/views/services/ServiceTypeList'
 import ServiceForm from '@/views/services/ServiceForm'
+import ServiceHistory from '@/views/services/ServiceHistory'
 
 Vue.use(Router)
 
@@ -82,7 +86,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/dashboard',
+      redirect: '/home',
       name: 'Home',
       component: Full,
       children: [
@@ -90,6 +94,11 @@ export default new Router({
           path: 'dashboard',
           name: 'Dashboard',
           component: Dashboard
+        },
+        {
+          path: 'home',
+          name: 'Home',
+          component: Home
         },
         {
           path: 'clients',
@@ -193,6 +202,11 @@ export default new Router({
               path: 'type-list',
               name: 'Gerir tipos de Serviço',
               component: ServiceTypeList
+            },
+            {
+              path: 'service-history',
+              name: 'Histórico de Serviços realizados',
+              component: ServiceHistory
             }
           ]
         },
