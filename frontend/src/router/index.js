@@ -97,7 +97,7 @@ export default new Router({
         },
         {
           path: 'home',
-          name: 'Home',
+          name: 'Página Inicial',
           component: Home
         },
         {
