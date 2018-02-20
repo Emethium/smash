@@ -1,48 +1,45 @@
-class EquipmentTypesController < ApplicationController
-    def index
-        @equipmentTypes = EquipmentType.all
-        respond_to do |format|
-            format.html
-            format.json {render :json => @EquipmentTypes}
-        end    
-    end
+module Api
+	module V1
+		class EquipmentTypesController < ApplicationController
+      			
+			def index
+				@types = EquipmentType.all
+				render json: {status: 'SUCCESS', message:'Types lock and loaded', data:@types}, status: :ok
+			end
 
-    def new
-        @equipmentType = EquipmentType.new
-    end
+			def show
+				@type = EquipmentType.find(params[:id])
+				render json: {status: 'SUCCESS', message:'Specific type loaded', data:@types}, status: :ok
+			end
+			
+			def create
+				@type = EquipmentType.new(type_params)
+				if @type.save
+					render json: {status: 'SUCCESS', message:'Saved new type, user-san', data:@type}, status: :ok
+				else
+					render json: {status: 'ERROR', message:'Type not saved, wonder why', data:@type.error}, status: :unprocessable_entity
+				end
+			end
 
-    def create
-        @equipmentType = EquipmentType.new
-        if @equipmentType.save
-            flash[:success] = "Novo tipo de equipamento cadastrado com sucesso!"
-            redirect_to EquipmentTypes_path
-        else
-            flash[:error] = "Algo deu errado, tente novamente"
-            redirect_to new_EquipmentType_path
-        end
-    end
+			def destroy
+				@type = EquipmentType.find(params[:id])
+				@type.destroy
+				render json: {status: 'SUCCESS', message:'Type succesfully erased from existance', data:@type}, status: :ok
+			end
 
-    def show
-        @equipmentType = EquipmentType.find(params[:id])
-    end
+			def update
+				@type = EquipmentType.find(params[:id])
+				if @type.update_attributes(type_params)
+					render json: {status: 'SUCCESS', message:'Updated type, move along', data:@type}, status: :ok
+				else
+					render json: {status: 'ERROR', message:'Could not update, blame the dev', data:@type.errors}, status: :unprocessable_entity
+				end
+			end
 
-    def edit
-        @equipmentType = EquipmentType.find(params[:id])
-    end
-
-    def update
-        @equipmentType = EquipmentType.find(params[:id])
-        if @EquipmentType.update_attributes(EquipmentType_params)
-            flash[:success] = "Dados atualizados com sucesso!"
-            redirect_to @EquipmentType
-        else
-            flash[:error] = "Ocorreu algum erro. Tente novamente!"
-            render 'edit'
-        end
-    end
-
-    private
-        def EquipmentType_params
-            params.require(:EquipmentType).permit(:type, :plate)
-        end
+			private
+			def type_params
+				params.permit(:kind)
+			end
+		end
+	end
 end

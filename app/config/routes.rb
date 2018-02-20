@@ -7,6 +7,8 @@ Rails.application.routes.draw do
       resources :costumers
       resources :equipments
       resources :services
+      resources :equipment_types
+      resources :service_types
   	end
   end
 
