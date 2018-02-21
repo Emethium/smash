@@ -2,7 +2,8 @@ Rails.application.routes.draw do
   root to: 'pages#index'
 
   namespace 'api' do
-  	namespace 'v1' do
+    namespace 'v1' do
+      get 'home', to: 'home#index'
   		resources :companies
       resources :costumers
       resources :equipments
