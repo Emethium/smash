@@ -15,19 +15,7 @@
 </template>
 
 <script>
-  /**
-   * Randomize array element order in-place.
-   * Using Durstenfeld shuffle algorithm.
-   */
-  const shuffleArray = (array) => {
-    for (let i = array.length - 1; i > 0; i--) {
-      let j = Math.floor(Math.random() * (i + 1))
-      let temp = array[i]
-      array[i] = array[j]
-      array[j] = temp
-    }
-    return array
-  }
+  import axios from 'axios'
 
   export default {
     name: 'c-table',
@@ -57,40 +45,29 @@
         default: false
       }
     },
-    data: () => {
+    data () {
       return {
-        items: shuffleArray([
-          {tipo: 'Tipode veículo #1', status: 'Active'},
-          {tipo: 'Tipode veículo #2', status: 'Active'},
-          {tipo: 'Tipode veículo #3', status: 'Active'},
-          {tipo: 'Tipode veículo #4', status: 'Active'},
-          {tipo: 'Tipode veículo #5', status: 'Active'},
-          {tipo: 'Tipode veículo #6', status: 'Active'},
-          {tipo: 'Tipode veículo #7', status: 'Active'},
-          {tipo: 'Tipode veículo #8', status: 'Active'},
-          {tipo: 'Tipode veículo #9', status: 'Active'},
-          {tipo: 'Tipode veículo #10', status: 'Active'},
-          {tipo: 'Tipode veículo #11', status: 'Active'},
-          {tipo: 'Tipode veículo #12', status: 'Active'},
-          {tipo: 'Tipode veículo #13', status: 'Active'}
-        ]),
+        items: [
+          {id: '', kind: ''}
+        ],
         fields: [
           {key: 'tipo'},
           {key: 'editar'},
           {key: 'excluir'}
         ],
         currentPage: 1,
-        perPage: 5,
+        perPage: 6,
         totalRows: 0
       }
     },
+    created () {
+      axios.get(`http://localhost:3000/api/v1/equipment_types`).then(
+        response => {
+          this.items = response.data
+          console.log(this.items.toString)
+        }).catch(e => { this.errors.push(e) })
+    },
     methods: {
-      getBadge (status) {
-        return status === 'Active' ? 'success'
-          : status === 'Inactive' ? 'secondary'
-            : status === 'Pending' ? 'warning'
-              : status === 'Banned' ? 'danger' : 'primary'
-      },
       getRowCount (items) {
         return items.length
       }
