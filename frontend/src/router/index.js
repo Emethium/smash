@@ -65,6 +65,7 @@ import VehicleSearch from '@/views/vehicles/VehicleSearch'
 import VehicleTypeForm from '@/views/vehicles/VehicleTypeForm'
 import VehicleForm from '@/views/vehicles/VehicleForm'
 import VehicleTypeList from '@/views/vehicles/VehicleTypeList'
+import VehicleTypeEdit from '@/views/vehicles/VehicleTypeEdit'
 
 // Views - Subsidiaries
 import SubsidiaryList from '@/views/subsidiaries/SubsidiaryList'
@@ -152,6 +153,11 @@ export default new Router({
               path: 'type-list',
               name: 'Gerir tipos de equipamento cadastrados',
               component: VehicleTypeList
+            },
+            {
+              path: 'type-edit/:id',
+              name: 'Editar tipo de equipamento',
+              component: VehicleTypeEdit
             }
           ]
         },

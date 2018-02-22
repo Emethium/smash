@@ -2,7 +2,7 @@
   <b-card :header="caption">
     <b-table :hover="hover" :striped="striped" :bordered="bordered" :small="small" :fixed="fixed" responsive="sm" :items="items" :fields="fields" :current-page="currentPage" :per-page="perPage">
       <template slot="edit" slot-scope="data">
-        <b-button variant="warning"><i class="fa fa-edit"></i>&nbsp; Modificar tipo</b-button>
+        <b-button href="/#/vehicles/type-edit/:item.id" variant="warning"><i class="fa fa-edit"></i>&nbsp; Modificar tipo</b-button>
       </template>
       <template slot="remove" slot-scope="data">
         <b-button variant="danger"><i class="fa fa-close"></i>&nbsp; Apagar registro</b-button>
@@ -49,13 +49,6 @@
       return {
         items: [],
         errors: [],
-        /*
-        fields: [
-          {key: 'kind'},
-          {key: 'editar'},
-          {key: 'excluir'}
-        ],
-        */
         fields: {
           kind: {
             label: 'Tipo de equipamento'
