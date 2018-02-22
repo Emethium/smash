@@ -1,10 +1,10 @@
 <template>
   <b-card :header="caption">
     <b-table :hover="hover" :striped="striped" :bordered="bordered" :small="small" :fixed="fixed" responsive="sm" :items="items" :fields="fields" :current-page="currentPage" :per-page="perPage">
-      <template slot="editar" slot-scope="data">
+      <template slot="edit" slot-scope="data">
         <b-button variant="warning"><i class="fa fa-edit"></i>&nbsp; Modificar tipo</b-button>
       </template>
-      <template slot="excluir" slot-scope="data">
+      <template slot="remove" slot-scope="data">
         <b-button variant="danger"><i class="fa fa-close"></i>&nbsp; Apagar registro</b-button>
       </template>
     </b-table>
@@ -47,24 +47,37 @@
     },
     data () {
       return {
-        items: [
-          {id: '', kind: ''}
-        ],
+        items: [],
+        errors: [],
+        /*
         fields: [
-          {key: 'tipo'},
+          {key: 'kind'},
           {key: 'editar'},
           {key: 'excluir'}
         ],
+        */
+        fields: {
+          kind: {
+            label: 'Tipo de equipamento'
+          },
+          edit: {
+            label: 'Editar'
+          },
+          remove: {
+            label: 'Apagar'
+          }
+        },
         currentPage: 1,
         perPage: 6,
-        totalRows: 0
+        totalRows: 0,
+        loading: false
       }
     },
     created () {
       axios.get(`http://localhost:3000/api/v1/equipment_types`).then(
         response => {
-          this.items = response.data
-          console.log(this.items.toString)
+          this.loading = true
+          this.items = response.data.data
         }).catch(e => { this.errors.push(e) })
     },
     methods: {
