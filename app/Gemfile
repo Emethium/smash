@@ -22,6 +22,7 @@ gem 'webpacker'
 # gem 'therubyracer', platforms: :ruby
 # Supposedly to initiate several processes at a time
 gem 'foreman'
+gem 'rack-cors'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'

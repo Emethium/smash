@@ -9,7 +9,7 @@ module Api
 
 			def show
 				@type = ServiceType.find(params[:id])
-				render json: {status: 'SUCCESS', message:'Specific type loaded', data:@types}, status: :ok
+				render json: {status: 'SUCCESS', message:'Specific type loaded', data:@type}, status: :ok
 			end
 			
 			def create

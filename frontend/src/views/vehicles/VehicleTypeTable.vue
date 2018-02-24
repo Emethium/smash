@@ -81,8 +81,7 @@
         return items.length
       },
       goToEdit (id) {
-        console.log('got object with id: ' + id)
-        this.$router.forward('/vehicles/type-edit/' + id)
+        this.$router.push({path: `/vehicles/type-edit/${id}`})
       }
     }
   }

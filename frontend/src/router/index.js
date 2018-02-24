@@ -81,6 +81,7 @@ import ServiceHistory from '@/views/services/ServiceHistory'
 Vue.use(Router)
 
 export default new Router({
+  props: ['id'],
   mode: 'hash', // Demo is living in GitHub.io, so required!
   linkActiveClass: 'open active',
   scrollBehavior: () => ({ y: 0 }),
@@ -157,7 +158,8 @@ export default new Router({
             {
               path: 'type-edit/:id',
               name: 'Editar tipo de equipamento',
-              component: VehicleTypeEdit
+              component: VehicleTypeEdit,
+              props: true
             }
           ]
         },
