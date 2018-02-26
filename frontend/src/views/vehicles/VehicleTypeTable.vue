@@ -1,12 +1,12 @@
 <template>
   <b-card :header="caption">
-    <b-table :hover="hover" :striped="striped" :bordered="bordered" :small="small" :fixed="fixed" responsive="sm" :items="items" :fields="fields" :current-page="currentPage" :per-page="perPage">
-      <b-alert show="dismissCountDown"
+    <b-alert :show="dismissCountDown"
         variant="danger"
         @dismissed="dismissCountdown=0"
         @dismiss-count-down="countDownChanged">
         Registro removido com sucesso!
-      </b-alert>
+    </b-alert>
+    <b-table :hover="hover" :striped="striped" :bordered="bordered" :small="small" :fixed="fixed" responsive="sm" :items="items" :fields="fields" :current-page="currentPage" :per-page="perPage">
       <template slot="kind" slot-scope="data">
         {{ data.item.kind }}
       </template>
@@ -14,10 +14,10 @@
         <b-button v-on:click="goToEdit(data.item.id)" variant="warning"><i class="fa fa-edit"></i>&nbsp; Modificar tipo</b-button>
       </template>
       <template slot="remove" slot-scope="data">
-        <b-button @click="exclusionModal = true" variant="danger"><i class="fa fa-close"></i>&nbsp; Apagar registro</b-button>
-        <b-modal title="Confirmação de operação" class="modal-danger" v-model="exclusionModal" @ok="deleteData(data.item.id)" ok-variant="danger">
-          <strong> Você têm certeza que quer excluir esse registro? </strong>
+        <b-modal title="Confirmação de operação" class="modal-danger" v-model="exclusionModal" @ok="deleteData()" ok-variant="danger">
+          <strong> Você têm certeza que quer excluir esse registro?</strong>
         </b-modal>
+        <b-button @click="exclusionModal = true" v-on:click="setDeletionParameters(data.item.id, data.item.kind)" variant="danger"><i class="fa fa-close"></i>&nbsp; Apagar registro</b-button>
       </template>
     </b-table>
     <nav>
@@ -79,7 +79,9 @@
         dismissSecs: 3,
         dismissCountDown: 0,
         showDismissibleAlert: false,
-        exclusionModal: false
+        exclusionModal: false,
+        id: '',
+        kind: ''
       }
     },
     created () {
@@ -90,6 +92,10 @@
         }).catch(e => { this.errors.push(e) })
     },
     methods: {
+      setDeletionParameters (id, kind) {
+        this.$data.id = id
+        this.$data.kind = kind
+      },
       getRowCount (items) {
         return items.length
       },
@@ -102,24 +108,27 @@
       goToEdit (id) {
         this.$router.push({path: `/vehicles/type-edit/${id}`})
       },
-      deleteData (id) {
-        console.log('asking object with id ' + id + 'for deletion')
-        axios.delete(`http://localhost:3000/api/v1/equipment_types/${id}`).then(
+      deleteData () {
+        console.log('asking object with id -> ' + this.$data.id + ' and name -> ' + this.$data.kind + ' for deletion')
+        axios.delete(`http://localhost:3000/api/v1/equipment_types/${this.$data.id}`).then(
           response => { console.log(response) }).catch(e => {
           this.errors.push(e)
           console.log(e)
         }).then(
           this.notifyDeletion(),
-          this.reloadPage())
+          this.removeDeletedObject(this.$data.id, this.$data.kind))
       },
       notifyDeletion () {
         this.showAlert()
       },
-      reloadPage () {
-        var self = this
-        setTimeout(function () {
-          self.$router.go()
-        }, 3000)
+      removeDeletedObject (id, kind) {
+        console.log('attempting do remove object with id ->' + id + ' and name ->' + kind + ' from the table view')
+        for (var i = 0; i < this.$data.items.length; i++) {
+          if (this.$data.items[i].id === id && this.$data.items[i].kind === kind) {
+            this.$data.items.splice(i, 1)
+            break
+          }
+        }
       }
     }
   }

@@ -6,10 +6,16 @@
                     <div slot="header">
                         <strong>Cadastro de novo tipo de veículo </strong>
                     </div>
+                    <b-alert :show="dismissCountDown"
+                       variant="success"
+                       @dismissed="dismissCountdown=0"
+                       @dismiss-count-down="countDownChanged">
+                       Tipo de veículo cadastrado com sucesso!
+                    </b-alert>
                     <b-form-group>
                         <b-form validated novalidate>
-                            <b-form-group label-for="inputError2" label="Modelo:">
-                                <b-form-input type="text" class="form-control-warning" placeholder="Digite o novo tipo de veículo" id="type" required></b-form-input>
+                            <b-form-group label-for="kind" label="Modelo:">
+                                <b-form-input type="text" v-model="kind" class="form-control-warning" placeholder="Digite o novo tipo de veículo" id="kind" required></b-form-input>
                                 <b-form-valid-feedback>
                                     Tipo inserido! <span class="fa fa-hand-peace-o fa-lg mt-2"></span>
                                 </b-form-valid-feedback>
@@ -20,8 +26,8 @@
                         </b-form>
                     </b-form-group>
                     <div slot="footer">
-                        <b-button type="submit" size="sm" variant="primary"><i class="fa fa-dot-circle-o"></i> Cadastrar!</b-button>
-                        <b-button type="reset" size="sm" variant="danger"><i class="fa fa-ban"></i> Apagar campo</b-button>
+                        <b-button v-on:click="sendData()" type="submit" size="sm" variant="primary"><i class="fa fa-dot-circle-o"></i> Cadastrar!</b-button>
+                        <b-button v-on:click="clearText()" type="reset" size="sm" variant="danger"><i class="fa fa-ban"></i> Apagar campo</b-button>
                     </div>
                 </b-card>
             </b-col>
@@ -30,16 +36,43 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   name: 'vehicleTypeForm',
   data () {
     return {
-      selected: [] // Must be an array reference!
+      kind: '',
+      dismissSecs: 2.005,
+      dismissCountDown: 0,
+      showDismissibleAlert: false
     }
   },
   methods: {
     click () {
       // do nothing
+    },
+    countDownChanged (dismissCountDown) {
+      this.dismissCountDown = dismissCountDown
+    },
+    showAlert () {
+      this.dismissCountDown = this.dismissSecs
+      var self = this
+      setTimeout(function () {
+        self.clearText()
+      }, 2000)
+    },
+    clearText: function () {
+      console.log('cleared type name text')
+      this.$data.kind = ''
+    },
+    sendData () {
+      console.log('sending data with new kind: ' + this.kind)
+      axios.post('http://localhost:3000/api/v1/equipment_types/', {
+        kind: this.kind
+      }).then(response => {}).catch(e => {
+        this.errors.push(e)
+      }).then(this.showAlert())
     }
   }
 }
