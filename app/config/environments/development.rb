@@ -57,4 +57,7 @@ Rails.application.configure do
 
   # Allows webpack-dev-server assets loading for javascript_pack_tag 
   config.x.webpacker[:dev_server_host] = 'http://127.0.0.1:8080'
+
+  # trying to circunvent cors
+  config.serve_static_assets = true
 end

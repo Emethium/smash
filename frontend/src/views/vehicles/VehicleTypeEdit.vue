@@ -6,6 +6,12 @@
                     <div slot="header">
                         <strong>Editar tipo de veículo</strong>
                     </div>
+                    <b-alert :show="dismissCountDown"
+                       variant="success"
+                       @dismissed="dismissCountdown=0"
+                       @dismiss-count-down="countDownChanged">
+                       Dados atualizados com sucesso!
+                    </b-alert>
                     <b-form-group>
                         <b-form validated novalidate>
                             <b-form-group label-for="kind" label="Alterar nome do tipo de veículo:">
@@ -30,7 +36,10 @@ export default {
   data () {
     return {
       selected: [],
-      kind: ''
+      kind: '',
+      dismissSecs: 3,
+      dismissCountDown: 0,
+      showDismissibleAlert: false
     }
   },
   created () {
@@ -42,24 +51,36 @@ export default {
       }).catch(e => { this.errors.push(e) })
   },
   methods: {
-    click () {
-      // do nothing
+    countDownChanged (dismissCountDown) {
+      this.dismissCountDown = dismissCountDown
+    },
+    showAlert () {
+      this.dismissCountDown = this.dismissSecs
     },
     clearText: function () {
       console.log('cleared type name text')
       this.$data.kind = ''
     },
+    notifyUser () {
+      this.showAlert()
+      this.goBack()
+    },
     goBack () {
-      this.$router.go(-1)
+      var self = this
+      setTimeout(function () {
+        self.$router.go(-1)
+      }, 2000)
     },
     updateData () {
       const id = this.$route.params.id
       axios.patch(`http://localhost:3000/api/v1/equipment_types/${id}`, {
-        body: this.kind
+        kind: this.kind
       }).then(response => { console.log(response) }).catch(e => {
         this.errors.push(e)
         console.log(e)
-      })
+      }).then(this.notifyUser())
+    },
+    deleteData () {
     }
   }
 }
