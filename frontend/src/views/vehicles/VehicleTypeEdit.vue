@@ -79,8 +79,6 @@ export default {
         this.errors.push(e)
         console.log(e)
       }).then(this.notifyUser())
-    },
-    deleteData () {
     }
   }
 }
