@@ -36,9 +36,17 @@ module Api
 				end
 			end
 
+			def search
+				@costumers = Costumer.where('name LIKE ? OR register_code LIKE ?', params[:name], params[:register_code])	
+				render json: {status: 'SUCCESS', message:'Costumers searched!', data:@costumers}, status: :ok
+			end
+
 			private
 			def costumer_params
 				params.permit(:name, :email, :kind, :register_code, :social_reason)
+			end
+			def search_params
+				params.permit(:name, :register_code, :kind)
 			end
 		end
 	end

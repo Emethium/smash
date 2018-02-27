@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   namespace 'api' do
     namespace 'v1' do
       get 'home', to: 'home#index'
+      get 'costumers/search', to: 'costumers#search'
   		resources :companies
       resources :costumers
       resources :equipments
