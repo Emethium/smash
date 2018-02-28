@@ -9,7 +9,7 @@ module Api
 
 			def show
 				@costumer = Costumer.find(params[:id])
-				render json: {status: 'SUCCESS', message:'Specific costumer loaded', data:@costumers}, status: :ok
+				render json: {status: 'SUCCESS', message:'Specific costumer loaded', data:@costumer}, status: :ok
 			end
 			
 			def create

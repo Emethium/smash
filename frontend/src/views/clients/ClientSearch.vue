@@ -127,7 +127,7 @@ export default {
     },
     goToEdit (id) {
       console.log('trying to edit costumer with id -> ' + id)
-      // this.$router.push({path: `/clients/edit/${id}`})
+      this.$router.push({path: `/clients/edit/${id}`})
     }
   }
 }

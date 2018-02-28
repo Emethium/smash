@@ -59,6 +59,7 @@ import Home from '@/views/home/HomeView'
 import ClientSearch from '@/views/clients/ClientSearch'
 import ClientFormPhysical from '@/views/clients/ClientFormPhysical'
 import ClientFormJuridic from '@/views/clients/ClientFormJuridic'
+import ClientEdit from '@/views/clients/ClientEdit'
 
 // Views - Vehicles
 import VehicleSearch from '@/views/vehicles/VehicleSearch'
@@ -124,6 +125,11 @@ export default new Router({
               path: 'juridic-form',
               name: 'Cadastro de Pessoas Jurídicas',
               component: ClientFormJuridic
+            },
+            {
+              path: 'edit/:id',
+              name: 'Edição de Cliente',
+              component: ClientEdit
             }
           ]
         },
