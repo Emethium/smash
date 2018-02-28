@@ -14,7 +14,7 @@
                     </b-alert>
                     <b-form-group>
                         <b-form validated novalidate>
-                            <b-form-group label-for="name" label="Alterar nome do tipo de veículo:">
+                            <b-form-group label-for="name" label="Alterar o nome do cliente:">
                                 <b-form-input v-model="name" type="text" class="form-control-warning" id="name"></b-form-input>
                             </b-form-group>
                         </b-form>
@@ -87,7 +87,7 @@ export default {
       var self = this
       setTimeout(function () {
         self.$router.go(-1)
-      }, 2000)
+      }, 3000)
     },
     updateData () {
       const id = this.$route.params.id
