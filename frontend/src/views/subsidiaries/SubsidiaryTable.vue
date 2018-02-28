@@ -100,10 +100,10 @@
     },
     methods: {
       getBadge (status) {
-        return status === 'Teixeira de Freitas' ? 'success'
-          : status === 'Vitória' ? 'secondary'
-            : status === 'Eunápolis' ? 'warning'
-              : status === 'Colatina' ? 'danger' : 'primary'
+        return status.length % 2 === 0 ? 'success'
+          : status.length % 3 === 0 ? 'secondary'
+            : status.length % 5 === 0 ? 'warning'
+              : status.length % 7 === 0 ? 'danger' : 'primary'
       },
       getRowCount (items) {
         return items.length
@@ -120,7 +120,7 @@
         this.dismissCountDown = this.dismissSecs
       },
       goToEdit (id) {
-        this.$router.push({path: `/companies/edit/${id}`})
+        this.$router.push({path: `/subsidiaries/edit/${id}`})
       },
       deleteData () {
         console.log('asking object with id -> ' + this.$data.id + '\nname -> ' + this.$data.name +

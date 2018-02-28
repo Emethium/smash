@@ -71,6 +71,7 @@ import VehicleTypeEdit from '@/views/vehicles/VehicleTypeEdit'
 // Views - Subsidiaries
 import SubsidiaryList from '@/views/subsidiaries/SubsidiaryList'
 import SubsidiaryForm from '@/views/subsidiaries/SubsidiaryForm'
+import SubsidiaryEdit from '@/views/subsidiaries/SubsidiaryEdit'
 
 // Views - Services
 import ServiceSearch from '@/views/services/ServiceSearch'
@@ -186,6 +187,11 @@ export default new Router({
               path: 'subsidiary-form',
               name: 'Cadastro de nova filial',
               component: SubsidiaryForm
+            },
+            {
+              path: 'edit/:id',
+              name: 'Editar filial',
+              component: SubsidiaryEdit
             }
           ]
         },
