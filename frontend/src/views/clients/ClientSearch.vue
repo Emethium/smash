@@ -40,6 +40,33 @@
                 </b-card>
             </b-col>
         </b-row>
+        <!--Hidden result table-->
+        <b-row>
+          <b-col md="6" class="mx-auto">
+            <b-alert :show="result" variant="info">
+              <b-card header-tag="header" footer-tag="footer">
+                <div slot="header">
+                  <i className="fa fa-align-justify"></i><strong>Resultado da busca</strong>
+                </div>
+                <b-list-group>
+                  <b-list-group-item  v-model="clients" href="#" class="flex-column align-items-start" v-for="client in clients" v-on:click="goToEdit(client.id)">
+                    <div class="d-flex w-100 justify-content-between" >
+                      <h5 class="mb-1">{{client.name}}</h5>
+                      <small>Registro: {{client.id}}</small>
+                    </div>
+                    <p class="mb-1">
+                      CPF/CNPJ: {{client.register_code}}
+                    </p>
+                    <p class="mb-1">
+                      Email: {{client.email}}
+                    </p>
+                  </b-list-group-item>
+                </b-list-group>
+              </b-card>
+            </b-alert>
+          </b-col>
+          
+        </b-row>
     </div>
 </template>
 
@@ -50,12 +77,13 @@ export default {
   name: 'clientSearch',
   data () {
     return {
-      selected: [], // Must be an array reference!
+      clients: [], // Must be an array reference!
       name: '',
       register_code: '',
       kind: '',
       physical_opt: false,
-      juridic_opt: false
+      juridic_opt: false,
+      result: false
     }
   },
   methods: {
@@ -81,8 +109,8 @@ export default {
           kind: this.$data.kind
         }
       }).then(response => {
-        console.log(response)
-      })
+        this.$data.clients = response.data.data
+      }).then(this.showList())
     },
     evalueKind () {
       if (this.$data.physical_opt === false && this.$data.juridic_opt === true) {
@@ -93,6 +121,13 @@ export default {
         this.$data.kind = ''
       }
       console.log('kind evalued, obtaining value of -> ' + this.$data.kind)
+    },
+    showList () {
+      this.$data.result = true
+    },
+    goToEdit (id) {
+      console.log('trying to edit costumer with id -> ' + id)
+      // this.$router.push({path: `/clients/edit/${id}`})
     }
   }
 }
