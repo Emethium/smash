@@ -1,36 +1,36 @@
 <template>
   <b-card :header="caption">
+    <b-alert :show="dismissCountDown"
+        variant="danger"
+        @dismissed="dismissCountdown=0"
+        @dismiss-count-down="countDownChanged">
+        Registro removido com sucesso!
+    </b-alert>
     <b-table :hover="hover" :striped="striped" :bordered="bordered" :small="small" :fixed="fixed" responsive="sm" :items="items" :fields="fields" :current-page="currentPage" :per-page="perPage">
-      <template slot="cidade" slot-scope="data">
-        <b-badge :variant="getBadge(data.item.cidade)">{{data.item.cidade}}</b-badge>
+      <template slot="name" slot-scope="data">
+        {{ data.item.name }}
       </template>
-      <template slot="editar dados cadastrais" slot-scope="data">
-        <b-button variant="warning"><i class="fa fa-edit"></i>&nbsp; Editar</b-button>
+      <template slot="city" slot-scope="data">
+        <b-badge :variant="getBadge(data.item.city)">{{data.item.city}}</b-badge>
       </template>
-      <template slot="remover filial" slot-scope="data">
-        <b-button variant="danger"><i class="fa fa-close"></i>&nbsp; Excluir</b-button>
+      <template slot="edit" slot-scope="data">
+        <b-button v-on:click="goToEdit(data.item.id)" variant="warning"><i class="fa fa-edit"></i>&nbsp; Modificar dados</b-button>
+      </template>
+      <template slot="remove" slot-scope="data">
+         <b-modal title="Confirmação de operação" class="modal-danger" v-model="exclusionModal" @ok="deleteData()" ok-variant="danger">
+          <strong> Você têm certeza que quer excluir esse registro?</strong>
+        </b-modal>
+        <b-button @click="exclusionModal = true" v-on:click="setDeletionParameters(data.item.id, data.item.name, data.item.city)" variant="danger"><i class="fa fa-close"></i>&nbsp; Apagar</b-button>
       </template>
     </b-table>
     <nav>
-      <b-pagination :total-rows="getRowCount(items)" :per-page="perPage" v-model="currentPage" prev-text="Prev" next-text="Next" hide-goto-end-buttons/>
+      <b-pagination :total-rows="getRowCount(items)" :per-page="perPage" v-model="currentPage" prev-text="Anterior" next-text="Próximo" hide-goto-end-buttons/>
     </nav>
   </b-card>
 </template>
 
 <script>
-  /**
-   * Randomize array element order in-place.
-   * Using Durstenfeld shuffle algorithm.
-   */
-  const shuffleArray = (array) => {
-    for (let i = array.length - 1; i > 0; i--) {
-      let j = Math.floor(Math.random() * (i + 1))
-      let temp = array[i]
-      array[i] = array[j]
-      array[j] = temp
-    }
-    return array
-  }
+  import axios from 'axios'
 
   export default {
     name: 'c-table',
@@ -60,32 +60,43 @@
         default: false
       }
     },
-    data: () => {
+    data () {
       return {
-        items: shuffleArray([
-          {nome: 'Vago Engenharia', cidade: 'Teixeira de Freitas', estado: 'BA'},
-          {nome: 'Vago Engenharia', cidade: 'Colatina', estado: 'ES'},
-          {nome: 'Vago Engenharia', cidade: 'Vitória', estado: 'ES'},
-          {nome: 'Vago Engenharia', cidade: 'Colatina', estado: 'ES'},
-          {nome: 'Vago Engenharia', cidade: 'Teixeira de Freitas', estado: 'BA'},
-          {nome: 'Vago Engenharia', cidade: 'Teixeira de Freitas', estado: 'BA'},
-          {nome: 'Vago Engenharia', cidade: 'Vitória', estado: 'ES'},
-          {nome: 'Vago Engenharia', cidade: 'Colatina', estado: 'ES'},
-          {nome: 'Vago Engenharia', cidade: 'Eunápolis', estado: 'BA'},
-          {nome: 'Vago Engenharia', cidade: 'Teixeira de Freitas', estado: 'BA'},
-          {nome: 'Vago Engenharia', cidade: 'Eunápolis', estado: 'BA'}
-        ]),
-        fields: [
-          {key: 'nome'},
-          {key: 'cidade'},
-          {key: 'estado'},
-          {key: 'editar dados cadastrais'},
-          {key: 'remover filial'}
-        ],
+        items: [],
+        errors: [],
+        fields: {
+          name: {
+            label: 'Nome da filial'
+          },
+          city: {
+            label: 'Cidade localizada'
+          },
+          edit: {
+            label: 'Editar'
+          },
+          remove: {
+            label: 'Apagar'
+          }
+        },
         currentPage: 1,
-        perPage: 5,
-        totalRows: 0
+        perPage: 6,
+        totalRows: 0,
+        loading: false,
+        dismissSecs: 3,
+        dismissCountDown: 0,
+        showDismissibleAlert: false,
+        exclusionModal: false,
+        id: '',
+        name: '',
+        city: ''
       }
+    },
+    created () {
+      axios.get(`http://localhost:3000/api/v1/companies`).then(
+        response => {
+          this.loading = true
+          this.items = response.data.data
+        }).catch(e => { this.errors.push(e) })
     },
     methods: {
       getBadge (status) {
@@ -96,6 +107,44 @@
       },
       getRowCount (items) {
         return items.length
+      },
+      setDeletionParameters (id, name, city) {
+        this.$data.id = id
+        this.$data.name = name
+        this.$data.city = city
+      },
+      countDownChanged (dismissCountDown) {
+        this.dismissCountDown = dismissCountDown
+      },
+      showAlert () {
+        this.dismissCountDown = this.dismissSecs
+      },
+      goToEdit (id) {
+        this.$router.push({path: `/companies/edit/${id}`})
+      },
+      deleteData () {
+        console.log('asking object with id -> ' + this.$data.id + '\nname -> ' + this.$data.name +
+        '\ncity -> ' + this.$data.city + ' for deletion')
+        axios.delete(`http://localhost:3000/api/v1/companies/${this.$data.id}`).then(
+          response => { console.log(response) }).catch(e => {
+          this.errors.push(e)
+          console.log(e)
+        }).then(
+          this.notifyDeletion(),
+          this.removeDeletedObject(this.$data.id, this.$data.name, this.$data.city))
+      },
+      notifyDeletion () {
+        this.showAlert()
+      },
+      removeDeletedObject (id, name, city) {
+        console.log('attempting do remove object with id ->' + id + '\nname -> ' + name +
+        '\ncity -> ' + city + ' from the table view')
+        for (var i = 0; i < this.$data.items.length; i++) {
+          if (this.$data.items[i].id === id && this.$data.items[i].name === name && this.$data.items[i].city === city) {
+            this.$data.items.splice(i, 1)
+            break
+          }
+        }
       }
     }
   }
