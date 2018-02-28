@@ -37,8 +37,10 @@ module Api
 			end
 
 			def search
-				#@costumers = Costumer.where('name LIKE ? OR register_code LIKE ?', params[:name], params[:register_code])	
-				@costumers = Costumer.where("name ILIKE ?", "%#{params[:name]}%")
+				@costumers = Costumer.where("name ILIKE ? AND register_code LIKE ?", "%#{params[:name]}%", "%#{params[:register_code]}%")
+				if params[:kind] != ''
+					@costumers = @costumers.where(:kind => params[:kind])
+				end
 				render json: {status: 'SUCCESS', message:'Costumers searched!', data:@costumers}, status: :ok
 			end
 

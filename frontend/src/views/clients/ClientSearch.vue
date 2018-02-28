@@ -54,8 +54,8 @@ export default {
       name: '',
       register_code: '',
       kind: '',
-      physical_opt: 0,
-      juridic_opt: 0
+      physical_opt: false,
+      juridic_opt: false
     }
   },
   methods: {
@@ -85,9 +85,9 @@ export default {
       })
     },
     evalueKind () {
-      if (this.$data.physical_opt === 0 && this.$data.juridic_opt === 1) {
+      if (this.$data.physical_opt === false && this.$data.juridic_opt === true) {
         this.$data.kind = true
-      } else if (this.$data.physical_opt === 1 && this.$data.juridic_opt === 0) {
+      } else if (this.$data.physical_opt === true && this.$data.juridic_opt === false) {
         this.$data.kind = false
       } else {
         this.$data.kind = ''
