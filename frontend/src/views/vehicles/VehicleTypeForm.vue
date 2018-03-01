@@ -14,7 +14,7 @@
                     </b-alert>
                     <b-form-group>
                         <b-form validated novalidate>
-                            <b-form-group label-for="kind" label="Modelo:">
+                            <b-form-group label-for="kind" label="Novo tipo:">
                                 <b-form-input type="text" v-model="kind" class="form-control-warning" placeholder="Digite o novo tipo de veículo" id="kind" required></b-form-input>
                                 <b-form-valid-feedback>
                                     Tipo inserido! <span class="fa fa-hand-peace-o fa-lg mt-2"></span>

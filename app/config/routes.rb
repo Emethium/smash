@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     namespace 'v1' do
       get 'home', to: 'home#index'
       get 'costumers/search', to: 'costumers#search'
+      get 'equipments/search', to: 'equipments#search'
   		resources :companies
       resources :costumers
       resources :equipments

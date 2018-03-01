@@ -109,6 +109,7 @@ export default {
       response => {
         this.loading = true
         this.$data.kinds = response.data.data
+        this.$data.kinds = this.sortByKey(this.$data.kinds, 'kind')
       }).catch(e => { this.errors.push(e) })
   },
   methods: {
@@ -117,6 +118,13 @@ export default {
     },
     countDownChanged (dismissCountDown) {
       this.dismissCountDown = dismissCountDown
+    },
+    sortByKey (array, key) {
+      return array.sort(function (a, b) {
+        var x = a[key]
+        var y = b[key]
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0))
+      })
     },
     showAlert () {
       this.dismissCountDown = this.dismissSecs
