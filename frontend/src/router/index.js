@@ -67,6 +67,7 @@ import VehicleTypeForm from '@/views/vehicles/VehicleTypeForm'
 import VehicleForm from '@/views/vehicles/VehicleForm'
 import VehicleTypeList from '@/views/vehicles/VehicleTypeList'
 import VehicleTypeEdit from '@/views/vehicles/VehicleTypeEdit'
+import VehicleEdit from '@/views/vehicles/VehicleEdit'
 
 // Views - Subsidiaries
 import SubsidiaryList from '@/views/subsidiaries/SubsidiaryList'
@@ -166,6 +167,12 @@ export default new Router({
               path: 'type-edit/:id',
               name: 'Editar tipo de equipamento',
               component: VehicleTypeEdit,
+              props: true
+            },
+            {
+              path: 'edit/:id',
+              name: 'Editar equipamento',
+              component: VehicleEdit,
               props: true
             }
           ]

@@ -9,7 +9,7 @@ module Api
 
 			def show
 				@equipment = Equipment.find(params[:id])
-				render json: {status: 'SUCCESS', message:'Specific Equipment loaded', data:@equipments}, status: :ok
+				render json: {status: 'SUCCESS', message:'Specific Equipment loaded', data:@equipment}, status: :ok
 			end
 			
 			def create

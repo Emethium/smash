@@ -131,7 +131,7 @@ export default {
     },
     goToEdit (id) {
       console.log('trying to edit vehicle with id -> ' + id)
-      this.$router.push({path: `/equipments/edit/${id}`})
+      this.$router.push({path: `/vehicles/edit/${id}`})
     }
   }
 }
