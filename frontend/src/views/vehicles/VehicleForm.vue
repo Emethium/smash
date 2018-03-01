@@ -71,8 +71,8 @@
                         :horizontal="true">
                         <b-form-select id="kind" v-model="kind"
                         :plain="true"
-                        :options="['Selecione o tipo do equipamento','Veículo Automotor', 'Vaso de Pressão', 'Máquina Operatriz']"
                         value="Selecione o tipo do equipamento">
+                            <option v-for="k in kinds">{{k.kind}}</option>
                         </b-form-select>
                     </b-form-group>
                     <div slot="footer">
@@ -97,11 +97,19 @@ export default {
       control: '',
       costumer: '',
       kind: '',
-      kinds: '',
+      kinds: [],
       dismissSecs: 3,
       dismissCountDown: 0,
-      showDismissibleAlert: false
+      showDismissibleAlert: false,
+      loading: false
     }
+  },
+  created () {
+    axios.get(`http://localhost:3000/api/v1/equipment_types`).then(
+      response => {
+        this.loading = true
+        this.$data.kinds = response.data.data
+      }).catch(e => { this.errors.push(e) })
   },
   methods: {
     click () {
