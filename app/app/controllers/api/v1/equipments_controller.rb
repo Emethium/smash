@@ -37,8 +37,8 @@ module Api
 			end
 
 			def search
-				@equipments = Equipment.where("plate ILIKE ? AND chassis ILIKE ? AND control_number LIKE ? AND proprietary ILIKE ? AND kind ILIKE ?",
-				"%#{params[:plate]}%", "%#{params[:chassis]}%", "%#{params[:control_number]}%", "%#{params[:proprietary]}%", "%#{params[:kind]}%")
+				@equipments = Equipment.where("plate ILIKE ? AND chassis ILIKE ? AND control_number LIKE ? AND proprietary ILIKE ? AND kind ILIKE ? AND proprietary ILIKE ?",
+				"%#{params[:plate]}%", "%#{params[:chassis]}%", "%#{params[:control_number]}%", "%#{params[:proprietary]}%", "%#{params[:kind]}%", "%#{params[:proprietary]}%")
 				render json: {status: 'SUCCESS', message:'equipments searched!', data:@equipments}, status: :ok
 			end
 

@@ -12,7 +12,6 @@
                     <b-form-group>
                       <label for="name">Nome:</label>
                       <autocomplete
-                        width="5em"
                         :source="autoCompleteData"
                         results-property="name"
                         :results-display="formattedDisplay"
