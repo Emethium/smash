@@ -10,8 +10,15 @@
                         </div>
                     </div>
                     <b-form-group>
-                    <label for="name">Nome:</label>
-                        <b-form-input v-model="name" type="text" id="name" placeholder="Entre com o nome do cliente ou empresa"></b-form-input>
+                      <label for="name">Nome:</label>
+                      <autocomplete
+                        width="5em"
+                        :source="autoCompleteData"
+                        results-property="name"
+                        :results-display="formattedDisplay"
+                        @selected="addName"
+                        placeholder="Entre com o nome do cliente ou empresa">
+                      </autocomplete>
                     </b-form-group>
                     <b-form-group>
                         <label for="postal-code">CPF/CNPJ:</label>
@@ -72,24 +79,34 @@
 
 <script>
 import axios from 'axios'
+import Autocomplete from 'vuejs-auto-complete'
 
 export default {
   name: 'clientSearch',
+  components: {
+    Autocomplete
+  },
   data () {
     return {
+      autoCompleteData: [],
       clients: [], // Must be an array reference!
       name: '',
       register_code: '',
       kind: '',
       physical_opt: false,
       juridic_opt: false,
-      result: false
+      result: false,
+      loading: false
     }
   },
+  created () {
+    axios.get(`http://localhost:3000/api/v1/costumers`).then(
+      response => {
+        this.loading = true
+        this.autoCompleteData = response.data.data
+      }).catch(e => { this.errors.push(e) })
+  },
   methods: {
-    click () {
-      // do nothing
-    },
     clearText () {
       this.$data.name = ''
       this.$data.register_code = ''
@@ -97,11 +114,16 @@ export default {
       this.$data.juridic_opt = 0
       console.log('cleared all entry text fields')
     },
+    formattedDisplay (result) {
+      return result.name
+    },
+    addName (client) {
+      this.$data.name = client.selectedObject.name
+      this.$data.register_code = client.selectedObject.register_code
+      console.log(this.name + '\n' + this.register_code)
+    },
     submitSearch () {
-      console.log('searching for data with parameters:\n' + 'name -> ' + this.$data.name + '\nregister code -> ' +
-          this.$data.register_code + '\ncostumer type -> ' + this.$data.kind)
       this.evalueKind()
-
       axios.get('http://localhost:3000/api/v1/costumers/search', {
         params: {
           name: this.$data.name,
@@ -120,13 +142,11 @@ export default {
       } else {
         this.$data.kind = ''
       }
-      console.log('kind evalued, obtaining value of -> ' + this.$data.kind)
     },
     showList () {
       this.$data.result = true
     },
     goToEdit (id) {
-      console.log('trying to edit costumer with id -> ' + id)
       this.$router.push({path: `/clients/edit/${id}`})
     }
   }
