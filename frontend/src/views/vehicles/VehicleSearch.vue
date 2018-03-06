@@ -166,6 +166,7 @@ export default {
         }
       }).then(response => {
         this.$data.vehicles = response.data.data
+        this.$data.vehicles.sort(function (a, b) { return (a.plate > b.plate) ? 1 : ((b.plate > a.plate) ? -1 : 0) })
       }).then(this.showList())
     },
     showList () {

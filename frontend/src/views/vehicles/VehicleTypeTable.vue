@@ -89,6 +89,7 @@
         response => {
           this.loading = true
           this.items = response.data.data
+          this.items.sort(function (a, b) { return (a.kind > b.kind) ? 1 : ((b.kind > a.kind) ? -1 : 0) })
         }).catch(e => { this.errors.push(e) })
     },
     methods: {

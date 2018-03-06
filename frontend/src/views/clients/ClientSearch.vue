@@ -131,6 +131,7 @@ export default {
         }
       }).then(response => {
         this.$data.clients = response.data.data
+        this.$data.clients.sort(function (a, b) { return (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0) })
       }).then(this.showList())
     },
     evalueKind () {
