@@ -1,33 +1,33 @@
 <template>
   <b-card :header="caption">
+    <b-alert :show="dismissCountDown"
+        variant="danger"
+        @dismissed="dismissCountdown=0"
+        @dismiss-count-down="countDownChanged">
+        Registro removido com sucesso!
+    </b-alert>
     <b-table :hover="hover" :striped="striped" :bordered="bordered" :small="small" :fixed="fixed" responsive="sm" :items="items" :fields="fields" :current-page="currentPage" :per-page="perPage">
-      <template slot="editar nome do serviço" slot-scope="data">
-        <b-button variant="warning"><i class="fa fa-edit"></i>&nbsp; Editar</b-button>
+      <template slot="kind" slot-scope="data">
+        {{ data.item.kind }}
       </template>
-      <template slot="remover serviço" slot-scope="data">
-        <b-button variant="danger"><i class="fa fa-close"></i>&nbsp; Excluir</b-button>
+      <template slot="edit" slot-scope="data">
+        <b-button v-on:click="goToEdit(data.item.id)" variant="warning"><i class="fa fa-edit"></i>&nbsp; Modificar tipo</b-button>
+      </template>
+      <template slot="remove" slot-scope="data">
+        <b-modal title="Confirmação de operação" class="modal-danger" v-model="exclusionModal" @ok="deleteData()" ok-variant="danger">
+          <strong> Você têm certeza que quer excluir esse registro?</strong>
+        </b-modal>
+        <b-button @click="exclusionModal = true" v-on:click="setDeletionParameters(data.item.id, data.item.kind)" variant="danger"><i class="fa fa-close"></i>&nbsp; Apagar registro</b-button>
       </template>
     </b-table>
     <nav>
-      <b-pagination :total-rows="getRowCount(items)" :per-page="perPage" v-model="currentPage" prev-text="Prev" next-text="Next" hide-goto-end-buttons/>
+      <b-pagination :total-rows="getRowCount(items)" :per-page="perPage" v-model="currentPage" prev-text="Anterior" next-text="Próximo" hide-goto-end-buttons/>
     </nav>
   </b-card>
 </template>
 
 <script>
-  /**
-   * Randomize array element order in-place.
-   * Using Durstenfeld shuffle algorithm.
-   */
-  const shuffleArray = (array) => {
-    for (let i = array.length - 1; i > 0; i--) {
-      let j = Math.floor(Math.random() * (i + 1))
-      let temp = array[i]
-      array[i] = array[j]
-      array[j] = temp
-    }
-    return array
-  }
+  import axios from 'axios'
 
   export default {
     name: 'c-table',
@@ -59,34 +59,76 @@
     },
     data: () => {
       return {
-        items: shuffleArray([
-          {serviço: 'Vistoria Mecânica DER/ES'},
-          {serviço: 'CSV para ANTT (LIT)'},
-          {serviço: 'Laudo NR-13 Vaso de Pressão'},
-          {serviço: 'Laudo Opacidade'},
-          {serviço: 'Laudo Ruído'},
-          {serviço: 'Relatório de Inspeção Técnica (RIT)'},
-          {serviço: 'Seguro de Responsabilidade Civil (RC)'}
-        ]),
-        fields: [
-          {key: 'serviço'},
-          {key: 'editar nome do serviço'},
-          {key: 'remover serviço'}
-        ],
+        items: [],
+        errors: [],
+        fields: {
+          kind: {
+            label: 'Tipo de serviço'
+          },
+          edit: {
+            label: 'Editar'
+          },
+          remove: {
+            label: 'Apagar'
+          }
+        },
         currentPage: 1,
-        perPage: 5,
-        totalRows: 0
+        perPage: 6,
+        totalRows: 0,
+        loading: false,
+        dismissSecs: 3,
+        dismissCountDown: 0,
+        showDismissibleAlert: false,
+        exclusionModal: false,
+        id: '',
+        kind: ''
       }
     },
+    created () {
+      axios.get(`http://localhost:3000/api/v1/service_types`).then(
+        response => {
+          this.loading = true
+          this.items = response.data.data
+        }).catch(e => { this.errors.push(e) })
+    },
     methods: {
-      getBadge (status) {
-        return status === 'Teixeira de Freitas' ? 'success'
-          : status === 'Vitória' ? 'secondary'
-            : status === 'Eunápolis' ? 'warning'
-              : status === 'Colatina' ? 'danger' : 'primary'
+      setDeletionParameters (id, kind) {
+        this.$data.id = id
+        this.$data.kind = kind
       },
       getRowCount (items) {
         return items.length
+      },
+      countDownChanged (dismissCountDown) {
+        this.dismissCountDown = dismissCountDown
+      },
+      showAlert () {
+        this.dismissCountDown = this.dismissSecs
+      },
+      goToEdit (id) {
+        this.$router.push({path: `/services/type-edit/${id}`})
+      },
+      deleteData () {
+        console.log('asking object with id -> ' + this.$data.id + ' and name -> ' + this.$data.kind + ' for deletion')
+        axios.delete(`http://localhost:3000/api/v1/service_types/${this.$data.id}`).then(
+          response => { console.log(response) }).catch(e => {
+          this.errors.push(e)
+          console.log(e)
+        }).then(
+          this.notifyDeletion(),
+          this.removeDeletedObject(this.$data.id, this.$data.kind))
+      },
+      notifyDeletion () {
+        this.showAlert()
+      },
+      removeDeletedObject (id, kind) {
+        console.log('attempting do remove object with id ->' + id + ' and name ->' + kind + ' from the table view')
+        for (var i = 0; i < this.$data.items.length; i++) {
+          if (this.$data.items[i].id === id && this.$data.items[i].kind === kind) {
+            this.$data.items.splice(i, 1)
+            break
+          }
+        }
       }
     }
   }
