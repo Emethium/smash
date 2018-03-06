@@ -80,6 +80,7 @@ import ServiceTypeForm from '@/views/services/ServiceTypeForm'
 import ServiceTypeList from '@/views/services/ServiceTypeList'
 import ServiceForm from '@/views/services/ServiceForm'
 import ServiceHistory from '@/views/services/ServiceHistory'
+import ServiceTypeEdit from '@/views/services/ServiceTypeEdit'
 
 Vue.use(Router)
 
@@ -234,6 +235,11 @@ export default new Router({
               path: 'service-history',
               name: 'Histórico de Serviços realizados',
               component: ServiceHistory
+            },
+            {
+              path: 'type-edit/:id',
+              name: 'Editar tipo de serviço',
+              component: ServiceTypeEdit
             }
           ]
         },
