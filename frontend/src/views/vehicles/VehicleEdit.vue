@@ -46,8 +46,9 @@
                         </b-form-group>
                     </b-form-group>
                     <div slot="footer">
+                        <b-button v-on:click="goBackNow()"  type="submit" size="sm" variant="danger"><i class="fa fa-close"></i> Voltar</b-button>
+                        <b-button v-on:click="clearText()" type="reset" size="sm" variant="warning"><i class="fa fa-ban"></i> Apagar campo</b-button>
                         <b-button v-on:click="updateData()" type="submit" size="sm" variant="primary"><i class="fa fa-dot-circle-o"></i> Alterar dados!</b-button>
-                        <b-button v-on:click="clearText()" type="reset" size="sm" variant="danger"><i class="fa fa-ban"></i> Apagar campo</b-button>
                     </div>
                 </b-card>
             </b-col>
@@ -121,6 +122,9 @@ export default {
       setTimeout(function () {
         self.$router.go(-1)
       }, 3000)
+    },
+    goBackNow () {
+      this.$router.go(-1)
     },
     updateData () {
       const id = this.$route.params.id
