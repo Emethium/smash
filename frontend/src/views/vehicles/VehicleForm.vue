@@ -77,7 +77,7 @@
                     </b-form-group>
                     <div slot="footer">
                         <b-button v-on:click="clearText()" type="reset" size="sm" variant="warning"><i class="fa fa-ban"></i> Apagar campo</b-button>
-                        <b-button v-on:click="sendData()" type="submit" size="sm" variant="primary"><i class="fa fa-dot-circle-o"></i> Cadastrar!</b-button>
+                        <b-button v-on:click="sendData()"  style="float:right" type="submit" size="sm" variant="primary"><i class="fa fa-dot-circle-o"></i> Cadastrar!</b-button>
                     </div>
                 </b-card>
             </b-col>
