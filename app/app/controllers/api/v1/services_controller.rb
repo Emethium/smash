@@ -38,7 +38,7 @@ module Api
 
 			private
 			def service_params
-				params.permit(:name, :done_at, :next_service, :cost)
+				params.permit(:name, :cost, :costumer, :equipment, :company, :done_at, :next_service)
 			end
 		end
 	end

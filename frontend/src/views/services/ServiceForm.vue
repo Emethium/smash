@@ -6,70 +6,56 @@
                     <div slot="header">
                         <strong>Cadastro de novo serviço</strong>
                     </div>
+                    <b-alert :show="dismissCountDown"
+                       variant="success"
+                       @dismissed="dismissCountdown=0"
+                       @dismiss-count-down="countDownChanged">
+                       Serviço cadastrado com sucesso!
+                    </b-alert>
                     <b-form-group
                         label="Escolha o tipo de serviço:"
                         label-for="basicSelect"
-                        :label-cols="3">
-                        <b-form-select id="type"
+                        :label-cols="3"
+                        :horizontal="true">
+                        <b-form-select id="kind" v-model="kind"
                         :plain="true"
-                        :options="['Selecione o tipo de serviço a ser efetuado','Vistoria Mecânica DER/ES', 'Laudo Ruído', 'CSV para ANTT (LIT)', 'Relatório de Inspeção Técnica (RIT)',
-                        'Laudo Opacidade', 'Laudo NR-13 Vaso de Pressão', 'Seguro de Responsabilidade Civil (RC)']"
-                        value="Selecione o tipo de serviço a ser efetuado">
+                        value="Selecione o tipo de serviço">
+                            <option v-for="k in kinds">{{k.kind}}</option>
                         </b-form-select>
                     </b-form-group>
                     <b-form-group
                         label="Filial efetuadora do serviço:"
                         label-for="basicSelect"
-                        :label-cols="3">
-                        <b-form-select id="subsidiary"
+                        :label-cols="3"
+                        :horizontal="true">
+                        <b-form-select id="company" v-model="company"
                         :plain="true"
-                        :options="['Selecione a filial que irá efetuar o serviço', 'Vago Engenharia #1', 'Vago Engenharia #2', 'Vago Engenharia #3']"
-                        value="Selecione a filial que irá efetuar o serviço">
+                        value="Selecione a filial">
+                            <option v-for="c in companies">{{c.name}}</option>
                         </b-form-select>
                     </b-form-group>
                     <b-form-group>
-                        <b-form validated novalidate>
-                            <b-form-group label-for="inputError2" label="Nome do Cliente ou Empresa contratante:">
-                                <b-form-input type="text" class="form-control-warning" placeholder="Digite o nome do Cliente ou Empresa" id="client" required></b-form-input>
-                                <b-form-valid-feedback>
-                                    Nome inserido! <span class="fa fa-hand-peace-o fa-lg mt-2"></span>
-                                </b-form-valid-feedback>
-                                <b-form-invalid-feedback>
-                                    Por favor, insira o nome do Cliente ou Empresa <span class="fa fa-frown-o fa-lg mt-2"></span>
-                                </b-form-invalid-feedback>
-                            </b-form-group>
-                        </b-form>
+                        <label for="plate">Placa do equipamento:</label>
+                        <autocomplete
+                            ref="autocomplete"
+                            id="plate"
+                            :showNoResults="false"
+                            :source="vehicles"
+                            results-property="plate"
+                            :results-display="formattedDisplay"
+                            @selected="setAttributes"
+                            input-class="vehicle"
+                            placeholder="Entre com a placa do equipamento">
+                        </autocomplete>
                     </b-form-group>
                     <b-form-group>
-                        <b-form validated novalidate>
-                            <b-form-group label-for="inputError2" label="Placa do veículo:">
-                                <b-form-input type="text" class="form-control-warning" placeholder="Digite a placa do veículo" id="plate" required></b-form-input>
-                                <b-form-valid-feedback>
-                                    Placa inserida! <span class="fa fa-hand-peace-o fa-lg mt-2"></span>
-                                </b-form-valid-feedback>
-                                <b-form-invalid-feedback>
-                                    Por favor, insira a placa do veículo <span class="fa fa-frown-o fa-lg mt-2"></span>
-                                </b-form-invalid-feedback>
-                            </b-form-group>
-                        </b-form>
+                        <label for="client">Nome do Cliente ou Empresa contratante:</label>
+                        <b-form-input v-model="client" type="text" id="client" placeholder="Insira o nome aqui"></b-form-input>
                     </b-form-group>
                     <b-form-group>
                         <b-form>
-                            <b-form-group label-for="inputError2" label="Valor do serviço, em reais:">
-                                <b-form-input type="number" class="form-control-warning" placeholder="Digite o valor do serviço (Ex: R$123.45)" id="control" required></b-form-input>
-                            </b-form-group>
-                        </b-form>
-                    </b-form-group>
-                    <b-form-group>
-                        <b-form validated novalidate>
-                            <b-form-group label-for="inputError2" label="Nome do Proprietário:">
-                                <b-form-input type="text" class="form-control-warning" placeholder="Digite o nome do proprietário" id="owner" required></b-form-input>
-                                <b-form-valid-feedback>
-                                    Proprietário inserido! <span class="fa fa-hand-peace-o fa-lg mt-2"></span>
-                                </b-form-valid-feedback>
-                                <b-form-invalid-feedback>
-                                    Por favor, insira o proprietário do veículo <span class="fa fa-frown-o fa-lg mt-2"></span>
-                                </b-form-invalid-feedback>
+                            <b-form-group label-for="cost" label="Valor do serviço, em reais:">
+                                <b-form-input v-model="cost" type="number" class="form-control-warning" placeholder="Digite o valor do serviço (Ex: R$123.45)" id="cost" required></b-form-input>
                             </b-form-group>
                         </b-form>
                     </b-form-group>
@@ -77,8 +63,8 @@
                         <b-col sm="5">
                             <b-form-group>
                                 <b-form>
-                                    <b-form-group label-for="inputError2" label="Data de execução do Serviço:">
-                                        <b-form-input type="date" id="executionDate"></b-form-input>
+                                    <b-form-group label-for="done_at" label="Data de execução do Serviço:">
+                                        <b-form-input type="date" v-model="done_at" id="done_at"></b-form-input>
                                     </b-form-group>
                                 </b-form>
                             </b-form-group>
@@ -86,8 +72,8 @@
                         <b-col sm="5">
                             <b-form-group>
                                 <b-form>
-                                    <b-form-group label-for="inputError2" label="Data de agendamento para o próximo Serviço:">
-                                        <b-form-input type="date" id="nextDate"></b-form-input>
+                                    <b-form-group label-for="next_service" label="Data de agendamento para o próximo Serviço:">
+                                        <b-form-input type="date" v-model="next_service" id="next-service"></b-form-input>
                                     </b-form-group>
                                 </b-form>
                             </b-form-group>
@@ -96,8 +82,8 @@
                     </b-row>
                     
                     <div slot="footer">
-                        <b-button type="submit" size="sm" variant="primary"><i class="fa fa-dot-circle-o"></i> Cadastrar!</b-button>
-                        <b-button type="reset" size="sm" variant="danger"><i class="fa fa-ban"></i> Apagar campo</b-button>
+                        <b-button v-on:click="clearText()" type="reset" size="sm" variant="warning"><i class="fa fa-ban"></i> Apagar todos os campos</b-button>
+                        <b-button v-on:click="sendData()" style="float:right"  type="submit" size="sm" variant="primary"><i class="fa fa-dot-circle-o"></i> Cadastrar novo serviço!</b-button>
                     </div>
                 </b-card>
             </b-col>
@@ -106,18 +92,104 @@
 </template>
 
 <script>
+import axios from 'axios'
+import Autocomplete from 'vuejs-auto-complete'
+
 export default {
   name: 'serviceForm',
+  components: {
+    Autocomplete
+  },
   data () {
     return {
-      selected: [] // Must be an array reference!
+      kind: '',
+      company: '',
+      client: '',
+      plate: '',
+      cost: 0,
+      done_at: '',
+      next_service: '',
+      kinds: [],
+      companies: [],
+      vehicles: [],
+      dismissSecs: 3,
+      dismissCountDown: 0,
+      showDismissibleAlert: false,
+      loading: false
     }
   },
+  created () {
+    axios.get(`http://localhost:3000/api/v1/service_types`).then(
+      response => {
+        this.loading = true
+        this.$data.kinds = response.data.data
+        this.$data.kinds = this.sortByKey(this.$data.kinds, 'kind')
+      }).catch(e => { this.errors.push(e) })
+    axios.get(`http://localhost:3000/api/v1/companies`).then(
+      response => {
+        this.loading = true
+        this.$data.companies = response.data.data
+        this.$data.companies = this.sortByKey(this.$data.companies, 'name')
+      }).catch(e => { this.errors.push(e) })
+    axios.get(`http://localhost:3000/api/v1/equipments`).then(
+      response => {
+        this.loading = true
+        this.$data.vehicles = response.data.data
+        this.$data.vehicles = this.sortByKey(this.$data.vehicles, 'plate')
+      }).catch(e => { this.errors.push(e) })
+  },
   methods: {
-    click () {
-      // do nothing
+    countDownChanged (dismissCountDown) {
+      this.dismissCountDown = dismissCountDown
+    },
+    formattedDisplay (result) {
+      return result.plate
+    },
+    setAttributes (vehicle) {
+      this.$data.plate = vehicle.selectedObject.plate
+      this.$data.client = vehicle.selectedObject.proprietary
+    },
+    sortByKey (array, key) {
+      return array.sort(function (a, b) {
+        var x = a[key]
+        var y = b[key]
+        return ((x < y) ? -1 : ((x > y) ? 1 : 0))
+      })
+    },
+    showAlert () {
+      scroll(0, 0)
+      this.dismissCountDown = this.dismissSecs
+      var self = this
+      setTimeout(function () {
+        self.clearText()
+      }, 3000)
+    },
+    clearText () {
+      this.$data.kind = ''
+      this.$data.company = ''
+      this.$data.client = ''
+      this.$data.plate = ''
+      this.$data.cost = 0
+      this.$data.done_at = ''
+      this.$data.next_service = ''
+      this.$refs.autocomplete.clearValues()
+      console.log('cleared all entry text fields')
+    },
+    sendData () {
+      axios.post('http://localhost:3000/api/v1/services/', {
+        name: this.$data.kind,
+        cost: this.$data.cost,
+        costumer: this.$data.client,
+        equipment: this.$data.plate,
+        company: this.$data.company,
+        done_at: this.$data.done_at,
+        next_service: this.$data.next_service
+      }).then(response => {}).catch(e => {
+        this.errors.push(e)
+      }).then(this.showAlert())
     }
   }
 }
 </script>
+
 
