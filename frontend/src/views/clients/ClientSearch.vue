@@ -12,6 +12,7 @@
                     <b-form-group>
                       <label for="name">Nome:</label>
                       <autocomplete
+                        ref="autocomplete"
                         :source="autoCompleteData"
                         results-property="name"
                         :results-display="formattedDisplay"
@@ -111,6 +112,7 @@ export default {
       this.$data.register_code = ''
       this.$data.physical_opt = 0
       this.$data.juridic_opt = 0
+      this.$refs.autocomplete.clearValues()
       console.log('cleared all entry text fields')
     },
     formattedDisplay (result) {

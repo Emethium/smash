@@ -12,6 +12,7 @@
                     <b-form-group>
                       <label for="name"><strong>Placa:</strong></label>
                       <autocomplete
+                        ref="autocomplete"
                         id="plateComplete"
                         :showNoResults="false"
                         :source="autoCompleteData"
@@ -148,8 +149,7 @@ export default {
       this.$data.control = ''
       this.$data.kind = ''
       this.$data.proprietary = ''
-      document.getElementById('plateComplete').value = 'VAMO USAR DROGA CARALHO'
-      // document.getElementById('chassis').textContent = ''
+      this.$refs.autocomplete.clearValues()
       console.log('cleared all entry text fields')
     },
     submitSearch () {
