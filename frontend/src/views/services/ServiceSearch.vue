@@ -291,8 +291,12 @@ export default {
           company: this.$data.company,
           costumer: this.$data.client,
           equipment: this.$data.plate,
-          done_at: this.$data.done_at,
-          next_service: this.$data.next_service
+          day1: this.$data.day1,
+          day2: this.$data.day2,
+          month1: this.$data.month1,
+          month2: this.$data.month2,
+          year1: this.$data.year1,
+          year2: this.$data.year2
         }
       }).then(response => {
         this.$data.services = response.data.data
