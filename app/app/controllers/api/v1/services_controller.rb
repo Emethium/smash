@@ -37,12 +37,9 @@ module Api
 			end
 
 			def search
-				if params[:order] != ''
-					@services = Service.find(params[:order])
-				else
-					@services = Service.where("name ILIKE ? AND costumer ILIKE ? AND equipment LIKE ? AND company ILIKE ?",
-						"%#{params[:name]}%", "%#{params[:costumer]}%", "%#{params[:equipment]}%", "%#{params[:company]}%")
-				end
+				@services = Service.where("name ILIKE ? AND costumer ILIKE ? AND equipment LIKE ? AND company ILIKE ?",
+					"%#{params[:name]}%", "%#{params[:costumer]}%", "%#{params[:equipment]}%", "%#{params[:company]}%")
+
 				render json: {status: 'SUCCESS', message:'services searched!', data:@services}, status: :ok
 			end
 

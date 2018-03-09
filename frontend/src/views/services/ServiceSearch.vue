@@ -9,10 +9,6 @@
                             <span class="fa fa-question"></span>
                         </div>
                     </div>
-                    <b-form-group>
-                    <label for="order">Código de ordem de serviço:</label>
-                        <b-form-input type="number" v-model="order" id="order"></b-form-input>
-                    </b-form-group>
                     <b-form-group
                         label="Escolha o tipo de serviço:"
                         label-for="basicSelect"
@@ -63,27 +59,76 @@
                             placeholder="Entre com o nome do Cliente ou Empresa Contratante">
                         </autocomplete>
                     </b-form-group>
-                    <b-row>
-                        <b-col sm="6">
-                            <b-form-group>
-                                <b-form>
-                                    <b-form-group label-for="done_at" label="Data de execução do Serviço:">
-                                        <b-form-input type="date" v-model="done_at" id="done_at"></b-form-input>
-                                    </b-form-group>
-                                </b-form>
-                            </b-form-group>
-                        </b-col>
-                        <b-col sm="6">
-                            <b-form-group>
-                                <b-form>
-                                    <b-form-group label-for="next_service" label="Data de agendamento para o próximo Serviço:">
-                                        <b-form-input type="date" v-model="next_service" id="next-service"></b-form-input>
-                                    </b-form-group>
-                                </b-form>
-                            </b-form-group>
-                        </b-col>
-                        
-                    </b-row>
+                    <b-form-group>
+                        <label for="done_at"><strong> Data de execução do serviço:</strong></label>
+                        <b-row>
+                            <b-col sm="3">
+                                <b-form-group >
+                                    <label for="day1">Dia</label>
+                                    <b-form-select id="day1"
+                                    v-model="day1"
+                                    :plain="true"
+                                    :options="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]">
+                                    </b-form-select>
+                                </b-form-group>
+                            </b-col>
+                            <b-col sm="3">
+                                <b-form-group>
+                                    <label for="month1">Mês</label>
+                                    <b-form-select id="month1"
+                                    v-model="month1"
+                                    :plain="true"
+                                    :options="[1,2,3,4,5,6,7,8,9,10,11,12]">
+                                    </b-form-select>
+                                </b-form-group>
+                            </b-col>
+                            <b-col sm="3">
+                                <b-form-group>
+                                    <label for="year1">Ano</label>
+                                    <b-form-select id="year1"
+                                    v-model="year1"
+                                    :plain="true"
+                                    :options="[2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030]">
+                                    </b-form-select>
+                                </b-form-group>
+                            </b-col>
+                        </b-row>
+                    </b-form-group>
+                   <b-form-group>
+                       <label for="done_at"><strong> Data de Agendamento do próximo serviço:</strong></label>
+                       <b-row>
+                            <b-col sm="3">
+                                <b-form-group >
+                                    <label for="day2">Dia</label>
+                                    <b-form-select id="day2"
+                                    v-model="day2"
+                                    :plain="true"
+                                    :options="[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]">
+                                    </b-form-select>
+                                </b-form-group>
+                            </b-col>
+                            <b-col sm="3">
+                                <b-form-group>
+                                    <label for="month2">Mês</label>
+                                    <b-form-select id="month2"
+                                    v-model="month2"
+                                    :plain="true"
+                                    :options="[1,2,3,4,5,6,7,8,9,10,11,12]">
+                                    </b-form-select>
+                                </b-form-group>
+                            </b-col>
+                            <b-col sm="3">
+                                <b-form-group>
+                                    <label for="year2">Ano</label>
+                                    <b-form-select id="year2"
+                                    v-model="year2"
+                                    :plain="true"
+                                    :options="[2017,2018,2019,2020,2021,2022,2023,2024,2025,2026,2027,2028,2029,2030]">
+                                    </b-form-select>
+                                </b-form-group>
+                            </b-col>
+                        </b-row>
+                   </b-form-group> 
                     <div slot="footer">
                         <b-button v-on:click="clearText()" type="reset" size="sm" variant="warning"><i class="fa fa-ban"></i> Apagar campos</b-button>
                         <b-button v-on:click="submitSearch()"  style="float:right" type="submit" size="sm" variant="primary"><i class="fa fa-send"></i> Pesquisar!</b-button>
@@ -144,13 +189,18 @@ export default {
   },
   data () {
     return {
-      order: '',
       kind: '',
       company: '',
       client: '',
       plate: '',
       done_at: '',
       next_service: '',
+      day1: '',
+      day2: '',
+      month1: '',
+      month2: '',
+      year1: '',
+      year2: '',
       kinds: [],
       companies: [],
       vehicles: [],
@@ -208,18 +258,25 @@ export default {
       })
     },
     clearText () {
-      this.$data.order = ''
+      console.log(this.done_at)
       this.$data.kind = ''
       this.$data.company = ''
       this.$data.client = ''
       this.$data.plate = ''
       this.$data.done_at = ''
       this.$data.next_service = ''
+      this.day1 = ''
+      this.day2 = ''
+      this.month1 = ''
+      this.month2 = ''
+      this.year1 = ''
+      this.year2 = ''
       this.$refs.autocomplete.clearValues()
       this.$refs.autocompleteClient.clearValues()
       console.log('cleared all entry text fields')
     },
     showList () {
+      console.log('Im showing tha list')
       this.$data.result = true
     },
     goToEdit (id) {
@@ -230,7 +287,6 @@ export default {
       this.$data.result = false
       axios.get('http://localhost:3000/api/v1/services/search', {
         params: {
-          order: this.$data.order,
           name: this.$data.kind,
           company: this.$data.company,
           costumer: this.$data.client,
@@ -240,7 +296,6 @@ export default {
         }
       }).then(response => {
         this.$data.services = response.data.data
-        this.$data.services.sort(function (a, b) { return (a.id > b.id) ? 1 : ((b.id > a.id) ? -1 : 0) })
         console.log(this.services)
       }).then(this.showList())
     }
