@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       get 'home', to: 'home#index'
       get 'costumers/search', to: 'costumers#search'
       get 'equipments/search', to: 'equipments#search'
+      get 'services/search', to: 'services#search'
   		resources :companies
       resources :costumers
       resources :equipments
