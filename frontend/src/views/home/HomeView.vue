@@ -5,7 +5,7 @@
         <div class="h1 text-muted text-right mb-4">
           <i class="icon-people"></i>
         </div>
-        <div class="h4 mb-0">750</div>
+        <div class="h4 mb-0">{{this.costumer_number}}</div>
         <small class="text-muted text-uppercase font-weight-bold">Clientes cadastrados no sistema</small>
         <b-progress height={} class="progress-xs mt-3 mb-0" variant="info" :value="99"/>
       </b-card>
@@ -13,15 +13,15 @@
         <div class="h1 text-muted text-right mb-4">
           <i class="icon-speedometer"></i>
         </div>
-        <div class="h4 mb-0">980</div>
-        <small class="text-muted text-uppercase font-weight-bold">Equipamentos cadastrados no sistema</small>
+        <div class="h4 mb-0">{{this.equipment_number}}</div>
+        <small class="text-muted text-uppercase font-weight-bold">Total de equipamentos cadastrados</small>
         <b-progress height={} class="progress-xs mt-3 mb-0" variant="success" :value="99"/>
       </b-card>
       <b-card>
         <div class="h1 text-muted text-right mb-4">
           <i class="icon-basket-loaded"></i>
         </div>
-        <div class="h4 mb-0">338</div>
+        <div class="h4 mb-0">{{this.monthly_services.length}}</div>
         <small class="text-muted text-uppercase font-weight-bold">Serviços atendidos no mês</small>
         <b-progress height={} class="progress-xs mt-3 mb-0" variant="warning" :value="99"/>
       </b-card>
@@ -29,7 +29,7 @@
         <div class="h1 text-muted text-right mb-4">
           <i class="icon-trophy"></i>
         </div>
-        <div class="h4 mb-0">2890</div>
+        <div class="h4 mb-0">{{this.service_number}}</div>
         <small class="text-muted text-uppercase font-weight-bold">Total de serviços realizados</small>
         <b-progress height={} class="progress-xs mt-3 mb-0" :value="99"/>
       </b-card>
@@ -37,7 +37,7 @@
         <div class="h1 text-muted text-right mb-4">
           <i class="fa fa-money"></i>
         </div>
-        <div class="h4 mb-0">R$30.543,21</div>
+        <div class="h4 mb-0">R$ {{this.earnings}}</div>
         <small class="text-muted text-uppercase font-weight-bold">Arrecadação no mês</small>
         <b-progress height={} class="progress-xs mt-3 mb-0" variant="danger" :value="99"/>
       </b-card>
@@ -58,14 +58,20 @@
 <script>
 
 import MainChart from './MainChart.vue'
+import axios from 'axios'
 
 export default {
   name: 'dashboard',
   components: {
     MainChart
   },
-  data: function () {
+  data: () => {
     return {
+      costumer_number: 0,
+      equipment_number: 0,
+      service_number: 0,
+      earnings: 0,
+      monthly_services: [],
       selected: 'Month',
       tableFields: {
         avatar: {
@@ -92,6 +98,17 @@ export default {
       }
     }
   },
+  created () {
+    axios.get(`http://localhost:3000/api/v1/home`).then(
+      response => {
+        this.loading = true
+        this.costumer_number = response.data.data.total_costumer_number
+        this.equipment_number = response.data.data.total_equipment_number
+        this.service_number = response.data.data.total_service_number
+        this.monthly_services = response.data.data.monthly_services
+        this.calculateEarnings()
+      }).catch(e => { this.errors.push(e) })
+  },
   methods: {
     variant (value) {
       let $variant
@@ -108,6 +125,14 @@ export default {
     },
     flag (value) {
       return 'flag-icon flag-icon-' + value
+    },
+    calculateEarnings () {
+      var earn = 0
+      this.monthly_services.forEach(function (service) {
+        earn = earn + service.cost
+        console.log('earn is now at R$ ' + earn)
+      })
+      this.earnings = earn
     }
   }
 }
