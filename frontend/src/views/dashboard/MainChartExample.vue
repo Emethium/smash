@@ -34,6 +34,7 @@ export default {
       data2.push(random(80, 100))
       data3.push(65)
     }
+    console.log(data1)
     this.renderChart({
       labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S', 'M', 'T', 'W', 'T', 'F', 'S', 'S', 'M', 'T', 'W', 'T', 'F', 'S', 'S', 'M', 'T', 'W', 'T', 'F', 'S', 'S'],
       datasets: [

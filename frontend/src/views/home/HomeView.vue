@@ -56,7 +56,6 @@
 </template>
 
 <script>
-
 import MainChart from './MainChart.vue'
 import axios from 'axios'
 
@@ -67,6 +66,7 @@ export default {
   },
   data: () => {
     return {
+      render: false,
       costumer_number: 0,
       equipment_number: 0,
       service_number: 0,
@@ -130,7 +130,6 @@ export default {
       var earn = 0
       this.monthly_services.forEach(function (service) {
         earn = earn + service.cost
-        console.log('earn is now at R$ ' + earn)
       })
       this.earnings = earn
     }
