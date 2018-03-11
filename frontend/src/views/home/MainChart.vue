@@ -20,12 +20,12 @@ function convertHex (hex, opacity) {
 export default {
   extends: Line,
   props: ['height'],
-  mounted () {
+  async mounted () {
     var services = []
     var data1 = new Array(31).fill(0)
     var data2 = new Array(31).fill(0)
 
-    axios.get(`http://localhost:3000/api/v1/home`).then(
+    await axios.get(`http://localhost:3000/api/v1/home`).then(
       response => {
         services = response.data.data.monthly_services
         services.forEach(function (service) {
@@ -72,7 +72,7 @@ export default {
         yAxes: [{
           ticks: {
             beginAtZero: true,
-            maxTicksLimit: 1,
+            maxTicksLimit: 5,
             stepSize: Math.ceil(30 / 5),
             max: 30
           },
@@ -85,7 +85,7 @@ export default {
         point: {
           radius: 0,
           hitRadius: 10,
-          hoverRadius: 4,
+          hoverRadius: 5,
           hoverBorderWidth: 3
         }
       }

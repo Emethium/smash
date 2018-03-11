@@ -47,7 +47,7 @@
       <b-row>
         <b-col sm="5">
           <h4 class="card-title mb-0">Demonstrativo de serviços do mês</h4>
-          <div class="small text-muted">Fevereiro 2018</div>
+          <div class="small text-muted">{{this.month}} {{this.year}}</div>
         </b-col>
       </b-row>
       <main-chart class="chart-wrapper" style="height:300px;margin-top:40px;" height="300"></main-chart>
@@ -58,6 +58,10 @@
 <script>
 import MainChart from './MainChart.vue'
 import axios from 'axios'
+
+const MONTH_NAMES = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
+  'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
+]
 
 export default {
   name: 'dashboard',
@@ -72,6 +76,8 @@ export default {
       service_number: 0,
       earnings: 0,
       monthly_services: [],
+      month: '',
+      year: '',
       selected: 'Month',
       tableFields: {
         avatar: {
@@ -107,6 +113,7 @@ export default {
         this.service_number = response.data.data.total_service_number
         this.monthly_services = response.data.data.monthly_services
         this.calculateEarnings()
+        this.getDate()
       }).catch(e => { this.errors.push(e) })
   },
   methods: {
@@ -132,6 +139,11 @@ export default {
         earn = earn + service.cost
       })
       this.earnings = earn
+    },
+    getDate () {
+      const d = new Date()
+      this.month = MONTH_NAMES[d.getMonth()]
+      this.year = d.getFullYear()
     }
   }
 }
