@@ -77,13 +77,13 @@ export default {
   },
   created () {
     const id = this.$route.params.id
-    axios.get(`http://localhost:3000/api/v1/equipment_types`).then(
+    axios.get(`/api/v1/equipment_types`).then(
       response => {
         this.loading = true
         this.$data.kinds = response.data.data
         this.$data.kinds = this.sortByKey(this.$data.kinds, 'kind')
       }).catch(e => { this.errors.push(e) })
-    axios.get(`http://localhost:3000/api/v1/equipments/${id}`).then(
+    axios.get(`/api/v1/equipments/${id}`).then(
       response => {
         this.$data.plate = response.data.data.plate
         this.$data.chassis = response.data.data.chassis
@@ -128,7 +128,7 @@ export default {
     },
     updateData () {
       const id = this.$route.params.id
-      axios.patch(`http://localhost:3000/api/v1/equipments/${id}`, {
+      axios.patch(`/api/v1/equipments/${id}`, {
         name: this.$data.name,
         chassis: this.$data.chassis,
         control_number: this.$data.control,

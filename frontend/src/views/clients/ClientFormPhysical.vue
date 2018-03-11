@@ -97,7 +97,7 @@ export default {
     },
     sendData () {
       console.log('sending data with: \nname ->' + this.$data.name + '\nregister code -> ' + this.$data.registercode + '\n email -> ' + this.$data.email)
-      axios.post('http://localhost:3000/api/v1/costumers/', {
+      axios.post('/api/v1/costumers/', {
         name: this.$data.name,
         email: this.$data.email,
         kind: '0',

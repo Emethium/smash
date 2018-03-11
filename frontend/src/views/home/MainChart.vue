@@ -25,7 +25,7 @@ export default {
     var data1 = new Array(31).fill(0)
     var data2 = new Array(31).fill(0)
 
-    await axios.get(`http://localhost:3000/api/v1/home`).then(
+    await axios.get(`/api/v1/home`).then(
       response => {
         services = response.data.data.monthly_services
         services.forEach(function (service) {

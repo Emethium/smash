@@ -113,7 +113,7 @@ export default {
     sendData () {
       console.log('sending data with: \nname ->' + this.$data.name + '\nregister code -> ' + this.$data.register_code +
       '\n email -> ' + this.$data.email + '\nsocial reason -> ' + this.$data.social_reason)
-      axios.post('http://localhost:3000/api/v1/costumers/', {
+      axios.post('/api/v1/costumers/', {
         name: this.$data.name,
         email: this.$data.email,
         kind: '1',

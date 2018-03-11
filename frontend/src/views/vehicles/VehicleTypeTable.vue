@@ -85,7 +85,7 @@
       }
     },
     created () {
-      axios.get(`http://localhost:3000/api/v1/equipment_types`).then(
+      axios.get(`/api/v1/equipment_types`).then(
         response => {
           this.loading = true
           this.items = response.data.data
@@ -111,7 +111,7 @@
       },
       deleteData () {
         console.log('asking object with id -> ' + this.$data.id + ' and name -> ' + this.$data.kind + ' for deletion')
-        axios.delete(`http://localhost:3000/api/v1/equipment_types/${this.$data.id}`).then(
+        axios.delete(`/api/v1/equipment_types/${this.$data.id}`).then(
           response => { console.log(response) }).catch(e => {
           this.errors.push(e)
           console.log(e)

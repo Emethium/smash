@@ -109,13 +109,13 @@ export default {
     }
   },
   created () {
-    axios.get(`http://localhost:3000/api/v1/equipment_types`).then(
+    axios.get(`/api/v1/equipment_types`).then(
       response => {
         this.loading = true
         this.$data.kinds = response.data.data
         this.$data.kinds = this.sortByKey(this.$data.kinds, 'kind')
       }).catch(e => { this.errors.push(e) })
-    axios.get(`http://localhost:3000/api/v1/equipments`).then(
+    axios.get(`/api/v1/equipments`).then(
       response => {
         this.loading = true
         this.$data.autoCompleteData = response.data.data
@@ -156,7 +156,7 @@ export default {
       console.log('searching for data with parameters:\n' + 'plate -> ' + this.$data.plate + '\nchassis -> ' +
           this.$data.chassis + '\ncontrol -> ' + this.$data.control + '\nkind -> ' + this.$data.kind)
 
-      axios.get('http://localhost:3000/api/v1/equipments/search', {
+      axios.get('/api/v1/equipments/search', {
         params: {
           plate: this.$data.plate,
           chassis: this.$data.chassis,

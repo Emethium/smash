@@ -105,7 +105,7 @@ export default {
     }
   },
   created () {
-    axios.get(`http://localhost:3000/api/v1/equipment_types`).then(
+    axios.get(`/api/v1/equipment_types`).then(
       response => {
         this.loading = true
         this.$data.kinds = response.data.data
@@ -144,7 +144,7 @@ export default {
     sendData () {
       console.log('sending data with: \nplate -> ' + this.$data.plate + '\nchassis -> ' + this.$data.chassis + '\n control -> ' + this.$data.control +
       '\ncostumer -> ' + this.$data.costumer + '\nkind -> ' + this.$data.kind)
-      axios.post('http://localhost:3000/api/v1/equipments/', {
+      axios.post('/api/v1/equipments/', {
         plate: this.$data.plate,
         chassis: this.$data.chassis,
         control_number: this.$data.control,

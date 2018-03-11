@@ -106,19 +106,19 @@ export default {
   },
   created () {
     const id = this.$route.params.id
-    axios.get(`http://localhost:3000/api/v1/companies`).then(
+    axios.get(`/api/v1/companies`).then(
       response => {
         this.loading = true
         this.$data.companies = response.data.data
         this.$data.companies = this.sortByKey(this.$data.companies, 'name')
       }).catch(e => { this.errors.push(e) })
-    axios.get(`http://localhost:3000/api/v1/service_types`).then(
+    axios.get(`/api/v1/service_types`).then(
       response => {
         this.loading = true
         this.$data.kinds = response.data.data
         this.$data.kinds = this.sortByKey(this.$data.kinds, 'kind')
       }).catch(e => { this.errors.push(e) })
-    axios.get(`http://localhost:3000/api/v1/services/${id}`).then(
+    axios.get(`/api/v1/services/${id}`).then(
       response => {
         this.$data.kind = response.data.data.name
         this.$data.company = response.data.data.company
@@ -167,7 +167,7 @@ export default {
     },
     updateData () {
       const id = this.$route.params.id
-      axios.patch(`http://localhost:3000/api/v1/services/${id}`, {
+      axios.patch(`/api/v1/services/${id}`, {
         name: this.$data.kind,
         company: this.$data.company,
         costumer: this.$data.client,

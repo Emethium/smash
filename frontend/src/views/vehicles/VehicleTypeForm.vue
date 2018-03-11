@@ -68,7 +68,7 @@ export default {
     },
     sendData () {
       console.log('sending data with new kind: ' + this.kind)
-      axios.post('http://localhost:3000/api/v1/equipment_types/', {
+      axios.post('/api/v1/equipment_types/', {
         kind: this.kind
       }).then(response => {}).catch(e => {
         this.errors.push(e)

@@ -105,7 +105,7 @@ export default {
     }
   },
   created () {
-    axios.get(`http://localhost:3000/api/v1/home`).then(
+    axios.get(`/api/v1/home`).then(
       response => {
         this.loading = true
         this.costumer_number = response.data.data.total_costumer_number

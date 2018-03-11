@@ -44,7 +44,7 @@ export default {
   },
   created () {
     const id = this.$route.params.id
-    axios.get(`http://localhost:3000/api/v1/equipment_types/${id}`).then(
+    axios.get(`/api/v1/equipment_types/${id}`).then(
       response => {
         this.loading = true
         this.kind = response.data.data.kind
@@ -73,7 +73,7 @@ export default {
     },
     updateData () {
       const id = this.$route.params.id
-      axios.patch(`http://localhost:3000/api/v1/equipment_types/${id}`, {
+      axios.patch(`/api/v1/equipment_types/${id}`, {
         kind: this.kind
       }).then(response => { console.log(response) }).catch(e => {
         this.errors.push(e)

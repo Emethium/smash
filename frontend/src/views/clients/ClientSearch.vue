@@ -100,7 +100,7 @@ export default {
     }
   },
   created () {
-    axios.get(`http://localhost:3000/api/v1/costumers`).then(
+    axios.get(`/api/v1/costumers`).then(
       response => {
         this.loading = true
         this.autoCompleteData = response.data.data
@@ -125,7 +125,7 @@ export default {
     },
     submitSearch () {
       this.evalueKind()
-      axios.get('http://localhost:3000/api/v1/costumers/search', {
+      axios.get('/api/v1/costumers/search', {
         params: {
           name: this.$data.name,
           register_code: this.$data.register_code,

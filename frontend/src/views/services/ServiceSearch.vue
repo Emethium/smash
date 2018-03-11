@@ -210,25 +210,25 @@ export default {
     }
   },
   created () {
-    axios.get(`http://localhost:3000/api/v1/service_types`).then(
+    axios.get(`/api/v1/service_types`).then(
       response => {
         this.loading = true
         this.$data.kinds = response.data.data
         this.$data.kinds = this.sortByKey(this.$data.kinds, 'kind')
       }).catch(e => { this.errors.push(e) })
-    axios.get(`http://localhost:3000/api/v1/companies`).then(
+    axios.get(`/api/v1/companies`).then(
       response => {
         this.loading = true
         this.$data.companies = response.data.data
         this.$data.companies = this.sortByKey(this.$data.companies, 'name')
       }).catch(e => { this.errors.push(e) })
-    axios.get(`http://localhost:3000/api/v1/equipments`).then(
+    axios.get(`/api/v1/equipments`).then(
       response => {
         this.loading = true
         this.$data.vehicles = response.data.data
         this.$data.vehicles = this.sortByKey(this.$data.vehicles, 'plate')
       }).catch(e => { this.errors.push(e) })
-    axios.get(`http://localhost:3000/api/v1/costumers`).then(
+    axios.get(`/api/v1/costumers`).then(
       response => {
         this.loading = true
         this.$data.clients = response.data.data
@@ -285,7 +285,7 @@ export default {
     },
     submitSearch () {
       this.$data.result = false
-      axios.get('http://localhost:3000/api/v1/services/search', {
+      axios.get('/api/v1/services/search', {
         params: {
           name: this.$data.kind,
           company: this.$data.company,

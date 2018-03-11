@@ -119,19 +119,19 @@ export default {
     }
   },
   created () {
-    axios.get(`http://localhost:3000/api/v1/service_types`).then(
+    axios.get(`/api/v1/service_types`).then(
       response => {
         this.loading = true
         this.$data.kinds = response.data.data
         this.$data.kinds = this.sortByKey(this.$data.kinds, 'kind')
       }).catch(e => { this.errors.push(e) })
-    axios.get(`http://localhost:3000/api/v1/companies`).then(
+    axios.get(`/api/v1/companies`).then(
       response => {
         this.loading = true
         this.$data.companies = response.data.data
         this.$data.companies = this.sortByKey(this.$data.companies, 'name')
       }).catch(e => { this.errors.push(e) })
-    axios.get(`http://localhost:3000/api/v1/equipments`).then(
+    axios.get(`/api/v1/equipments`).then(
       response => {
         this.loading = true
         this.$data.vehicles = response.data.data
@@ -176,7 +176,7 @@ export default {
       console.log('cleared all entry text fields')
     },
     sendData () {
-      axios.post('http://localhost:3000/api/v1/services/', {
+      axios.post('/api/v1/services/', {
         name: this.$data.kind,
         cost: this.$data.cost,
         costumer: this.$data.client,

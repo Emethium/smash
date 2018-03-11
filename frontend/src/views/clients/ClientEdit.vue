@@ -59,7 +59,7 @@ export default {
   },
   created () {
     const id = this.$route.params.id
-    axios.get(`http://localhost:3000/api/v1/costumers/${id}`).then(
+    axios.get(`/api/v1/costumers/${id}`).then(
       response => {
         this.$data.loading = true
         this.$data.name = response.data.data.name
@@ -96,7 +96,7 @@ export default {
     },
     updateData () {
       const id = this.$route.params.id
-      axios.patch(`http://localhost:3000/api/v1/costumers/${id}`, {
+      axios.patch(`/api/v1/costumers/${id}`, {
         name: this.$data.name,
         register_code: this.$data.register_code,
         email: this.$data.email

@@ -137,7 +137,7 @@ export default {
     sendData () {
       console.log('sending data with: \nname ->' + this.$data.name + '\nsocial reason -> ' + this.$data.social_reason + '\n email -> ' + this.$data.email +
       'cnpj -> ' + this.$data.cnpj + 'city -> ' + this.$data.city + 'state -> ' + this.$data.state)
-      axios.post('http://localhost:3000/api/v1/companies/', {
+      axios.post('/api/v1/companies/', {
         name: this.$data.name,
         social_reason: this.$data.social_reason,
         email: this.$data.email,
