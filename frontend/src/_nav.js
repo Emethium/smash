@@ -107,6 +107,11 @@ export default {
       ]
     },
     {
+      name: 'Sobre',
+      url: '/about',
+      icon: 'fa fa-hashtag fa-lg mt-2'
+    },
+    {
       title: true,
       name: 'Theme',
       class: '',

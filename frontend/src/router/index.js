@@ -52,8 +52,9 @@ import Page500 from '@/views/pages/Page500'
 import Login from '@/views/pages/Login'
 import Register from '@/views/pages/Register'
 
-// View - Home
+// View - Other pages
 import Home from '@/views/home/HomeView'
+import About from '@/views/about/About'
 
 // Views - Clients
 import ClientSearch from '@/views/clients/ClientSearch'
@@ -106,6 +107,11 @@ export default new Router({
           path: 'home',
           name: 'Página Inicial',
           component: Home
+        },
+        {
+          path: 'about',
+          name: 'Sobre',
+          component: About
         },
         {
           path: 'clients',
