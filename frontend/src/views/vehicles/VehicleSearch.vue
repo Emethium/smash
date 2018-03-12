@@ -56,7 +56,7 @@
         <!-- Hidden result list -->
         <b-row>
           <b-col md="6" class="mx-auto">
-            <b-alert :show="result" variant="info">
+            <b-alert :show="result" variant="bg-gray-100">
               <b-card header-tag="header" footer-tag="footer">
                 <div slot="header">
                   <i className="fa fa-align-justify"></i><strong>Resultado da busca</strong>
