@@ -24,6 +24,7 @@
       </template>
     </b-table>
     <nav>
+      <b-button size="sm" v-on:click="createQueryPdf()" style="float:right" variant="secondary">Exportar filiais em PDF</b-button>
       <b-pagination :total-rows="getRowCount(items)" :per-page="perPage" v-model="currentPage" prev-text="Anterior" next-text="Próximo" hide-goto-end-buttons/>
     </nav>
   </b-card>
@@ -31,6 +32,7 @@
 
 <script>
   import axios from 'axios'
+  import JsPDF from 'jspdf'
 
   export default {
     name: 'c-table',
@@ -146,6 +148,37 @@
             break
           }
         }
+      },
+      createQueryPdf () {
+        var doc = new JsPDF()
+        var j = 0
+        var collumn = 0
+        let token = new Date()
+        // Setting font size and adding the needed number of pages
+        doc.setFontSize(12)
+        doc.text(55, 6, 'FILIAIS CADASTRADAS - DATA: ' + token.getDate() + '/' + token.getUTCMonth() + '/' + token.getFullYear() + '\n\n')
+        this.items.forEach(function (item, i) {
+          if (i % 7 === 0 && i !== 0 && collumn === 1) {
+            j = 0
+            collumn = 0
+            doc.addPage()
+          } else if (i % 7 === 0 && i !== 0 && collumn === 0) {
+            collumn = 1
+            j = 0
+          }
+          doc.text(20 + (collumn * 85), 10 + (j * 40),
+            '----------------------------------------------------------\n' +
+            'Número de registro: ' + item.id + '\n' +
+            'Nome: ' + item.name + '\n' +
+            'Razão Social: ' + item.social_reason + '\n' +
+            'CNPJ: ' + item.cnpj + '\n' +
+            'Cidade: ' + item.city + '\n' +
+            'Estado: ' + item.state + '\n' +
+            'Email: ' + item.email + '\n'
+          )
+          j++
+        })
+        doc.save('listagem_filiais_' + token.getDate() + '_' + token.getUTCMonth() + '_' + token.getFullYear() + '.pdf')
       }
     }
   }
