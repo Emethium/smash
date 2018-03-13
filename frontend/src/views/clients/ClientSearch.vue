@@ -157,8 +157,10 @@ export default {
       var doc = new JsPDF()
       var j = 0
       var collumn = 0
+      let token = new Date()
       // Setting font size and adding the needed number of pages
       doc.setFontSize(12)
+      doc.text(70, 6, 'CONSULTA DE CLIENTES - DATA: ' + token.getDate() + '/' + token.getUTCMonth() + '/' + token.getFullYear() + '\n\n')
       this.clients.forEach(function (client, i) {
         if (i % 8 === 0 && i !== 0 && collumn === 1) {
           j = 0
@@ -168,7 +170,7 @@ export default {
           collumn = 1
           j = 0
         }
-        doc.text(20 + (collumn * 85), 10 + (j * 35),
+        doc.text(20 + (collumn * 95), 10 + (j * 35),
           '----------------------------------------------------------\n' +
           'Número de Registro: ' + client.id + '\n' +
           'Nome do Cliente: ' + client.name + '\n' +
@@ -178,7 +180,7 @@ export default {
         )
         j++
       })
-      doc.save('consulta_clientes.pdf')
+      doc.save('consulta_clientes_' + token.getDate() + '_' + token.getUTCMonth() + '_' + token.getFullYear() + '.pdf')
     }
   }
 }
