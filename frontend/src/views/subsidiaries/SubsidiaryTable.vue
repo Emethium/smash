@@ -24,7 +24,7 @@
       </template>
     </b-table>
     <nav>
-      <b-button size="sm" v-on:click="createQueryPdf()" style="float:right" variant="secondary">Exportar filiais em PDF</b-button>
+      <b-button size="md" v-on:click="createQueryPdf()" style="float:right" variant="secondary">Exportar filiais em PDF</b-button>
       <b-pagination :total-rows="getRowCount(items)" :per-page="perPage" v-model="currentPage" prev-text="Anterior" next-text="Próximo" hide-goto-end-buttons/>
     </nav>
   </b-card>
