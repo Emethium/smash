@@ -49,11 +49,12 @@
         </b-row>
         <!--Hidden result table-->
         <b-row>
-          <b-col md="6" class="mx-auto">
+          <b-col md="7" class="mx-auto">
             <b-alert :show="result" variant="bg-gray-100">
               <b-card header-tag="header" footer-tag="footer">
                 <div slot="header">
-                  <i className="fa fa-align-justify"></i><strong>Resultado da busca</strong>
+                  <i className="fa fa-align-justify"></i><strong>Resultado da busca:</strong>
+                  <b-button size="sm" v-on:click="createQueryPdf()" style="float:right" variant="secondary">Exportar consulta em PDF</b-button>
                 </div>
                 <b-list-group>
                   <b-list-group-item  v-model="clients" href="#" class="flex-column align-items-start" v-for="client in clients" v-on:click="goToEdit(client.id)">
@@ -80,6 +81,7 @@
 <script>
 import axios from 'axios'
 import Autocomplete from 'vuejs-auto-complete'
+import JsPDF from 'jspdf'
 
 export default {
   name: 'clientSearch',
@@ -89,7 +91,7 @@ export default {
   data () {
     return {
       autoCompleteData: [],
-      clients: [], // Must be an array reference!
+      clients: [],
       name: '',
       register_code: '',
       kind: '',
@@ -150,6 +152,33 @@ export default {
     },
     goToEdit (id) {
       this.$router.push({path: `/clients/edit/${id}`})
+    },
+    createQueryPdf () {
+      var doc = new JsPDF()
+      var j = 0
+      var collumn = 0
+      // Setting font size and adding the needed number of pages
+      doc.setFontSize(12)
+      this.clients.forEach(function (client, i) {
+        if (i % 8 === 0 && i !== 0 && collumn === 1) {
+          j = 0
+          collumn = 0
+          doc.addPage()
+        } else if (i % 8 === 0 && i !== 0 && collumn === 0) {
+          collumn = 1
+          j = 0
+        }
+        doc.text(20 + (collumn * 85), 10 + (j * 35),
+          '----------------------------------------------------------\n' +
+          'Número de Registro: ' + client.id + '\n' +
+          'Nome do Cliente: ' + client.name + '\n' +
+          'CPF/CNPJ: ' + client.register_code + '\n' +
+          'E-mail: ' + client.email + '\n' +
+          'Razão Social: ' + client.social_reason + '\n'
+        )
+        j++
+      })
+      doc.save('consulta_clientes.pdf')
     }
   }
 }
