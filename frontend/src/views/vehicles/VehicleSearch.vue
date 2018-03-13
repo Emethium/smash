@@ -60,6 +60,7 @@
               <b-card header-tag="header" footer-tag="footer">
                 <div slot="header">
                   <i className="fa fa-align-justify"></i><strong>Resultado da busca</strong>
+                  <b-button size="sm" v-on:click="createQueryPdf()" style="float:right" variant="secondary">Exportar consulta em PDF</b-button>
                 </div>
                 <b-list-group>
                   <b-list-group-item  v-model="vehicles" href="#" class="flex-column align-items-start" v-for="v in vehicles" v-on:click="goToEdit(v.id)">
@@ -89,6 +90,7 @@
 <script>
 import axios from 'axios'
 import Autocomplete from 'vuejs-auto-complete'
+import JsPDF from 'jspdf'
 
 export default {
   name: 'vehicleSearch',
@@ -175,6 +177,35 @@ export default {
     goToEdit (id) {
       console.log('trying to edit vehicle with id -> ' + id)
       this.$router.push({path: `/vehicles/edit/${id}`})
+    },
+    createQueryPdf () {
+      var doc = new JsPDF()
+      var j = 0
+      var collumn = 0
+      let token = new Date()
+      // Setting font size and adding the needed number of pages
+      doc.setFontSize(12)
+      doc.text(55, 6, 'CONSULTA DE EQUIPAMENTOS - DATA: ' + token.getDate() + '/' + token.getUTCMonth() + '/' + token.getFullYear() + '\n\n')
+      this.vehicles.forEach(function (vehicle, i) {
+        if (i % 8 === 0 && i !== 0 && collumn === 1) {
+          j = 0
+          collumn = 0
+          doc.addPage()
+        } else if (i % 8 === 0 && i !== 0 && collumn === 0) {
+          collumn = 1
+          j = 0
+        }
+        doc.text(20 + (collumn * 85), 10 + (j * 35),
+          '----------------------------------------------------------\n' +
+          'Número de controle: ' + vehicle.control_number + '\n' +
+          'Placa: ' + vehicle.plate + '\n' +
+          'Chassis: ' + vehicle.chassis + '\n' +
+          'Proprietário: ' + vehicle.proprietary + '\n' +
+          'Tipo: ' + vehicle.kind + '\n'
+        )
+        j++
+      })
+      doc.save('consulta_equipamentos_' + token.getDate() + '_' + token.getUTCMonth() + '_' + token.getFullYear() + '.pdf')
     }
   }
 }
