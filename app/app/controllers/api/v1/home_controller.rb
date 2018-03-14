@@ -10,7 +10,7 @@ module Api
                 # All services completed in the current month
                 first_of_month = Date.current.beginning_of_month
                 last_of_month = Date.current.end_of_month
-                @monthly_services = Service.where('done_at BETWEEN ? AND ?', first_of_month, last_of_month)
+                @monthly_services = Service.where('done_at BETWEEN ? AND ? OR next_service BETWEEN ? AND ?', first_of_month, last_of_month, first_of_month, last_of_month)
 
                 # Packaging everything together to transmit
                 @home = Home.new
