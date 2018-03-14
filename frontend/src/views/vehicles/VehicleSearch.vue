@@ -32,8 +32,18 @@
                         <b-form-input v-model="control" type="text" id="control" placeholder="Digite o número de patrimônio ou controle"></b-form-input>
                     </b-form-group>
                     <b-form-group>
-                        <label for="proprietary"><strong>Nome do proprietário:</strong></label>
-                        <b-form-input v-model="proprietary" type="text" id="proprietary" placeholder="Digite o nome do proprietário"></b-form-input>
+                      <label for="name"><strong>Nome do Cliente ou Empresa Contratante:</strong></label>
+                      <autocomplete
+                        ref="clientComplete"
+                        id="clientComplete"
+                        :showNoResults="false"
+                        :source="clients"
+                        results-property="name"
+                        :results-display="formattedDisplayClient"
+                        @selected="setClientName"
+                        input-class="name"
+                        placeholder="Nome do Cliente ou Empresa Contratante">
+                      </autocomplete>
                     </b-form-group>
                     <b-form-group
                         label="Tipo de equipamento:"
@@ -101,6 +111,7 @@ export default {
     return {
       autoCompleteData: [],
       vehicles: [],
+      clients: [],
       plate: '',
       chassis: '',
       control: '',
@@ -122,6 +133,11 @@ export default {
         this.loading = true
         this.$data.autoCompleteData = response.data.data
       }).catch(e => { this.errors.push(e) })
+    axios.get(`/api/v1/costumers`).then(
+      response => {
+        this.loading = true
+        this.$data.clients = response.data.data
+      }).catch(e => { this.errors.push(e) })
   },
   methods: {
     sortByKey (array, key) {
@@ -137,13 +153,20 @@ export default {
     formattedDisplayChassis (result) {
       return result.chassis
     },
+    formattedDisplayClient (client) {
+      return client.name
+    },
     setAttributes (vehicle) {
       this.$data.plate = vehicle.selectedObject.plate
       this.$data.chassis = vehicle.selectedObject.chassis
       this.$data.control = vehicle.selectedObject.control_number
       this.$data.kind = vehicle.selectedObject.kind
       this.$data.proprietary = vehicle.selectedObject.proprietary
+      this.$refs.clientComplete.display = vehicle.selectedObject.proprietary
       console.log(this.$data.plate + '\n' + this.$data.chassis + '\n' + this.$data.control + '\n' + this.$data.kind)
+    },
+    setClientName (client) {
+      this.$data.proprietary = client.selectedObject.name
     },
     clearText () {
       this.$data.plate = ''
@@ -152,11 +175,12 @@ export default {
       this.$data.kind = ''
       this.$data.proprietary = ''
       this.$refs.autocomplete.clearValues()
+      this.$refs.clientComplete.clearValues()
       console.log('cleared all entry text fields')
     },
     submitSearch () {
       console.log('searching for data with parameters:\n' + 'plate -> ' + this.$data.plate + '\nchassis -> ' +
-          this.$data.chassis + '\ncontrol -> ' + this.$data.control + '\nkind -> ' + this.$data.kind)
+          this.$data.chassis + '\ncontrol -> ' + this.$data.control + '\nkind -> ' + this.$data.kind + '\nproprietary ->' + this.proprietary)
 
       axios.get('/api/v1/equipments/search', {
         params: {
