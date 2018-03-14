@@ -1,199 +1,130 @@
 <template>
+	<!-- Credits for the Gameboy CSS goes to Red X at https://www.freecodecamp.com/llredxll -->
     <div class="wrapper">
-        <b-card header="Sobre" border-variant="info">
-          <p class="mx-auto">
-            Sistema desenvolvido com o intuito de facilitar o manejamento de serviços e empresas do Engenheiro Marcos Alvany Vago.
-          </p>
-          <p class="mx-auto">
-            Para qualquer dúvida, bug ou esclarecimento, entrar em contato no e-mail: <strong>nikolas.serafini@gmail.com</strong>
-          </p> 
-          <div class="mx-auto">
-            <div class="menu-toggle">
-                <div class="icon">
-                    <div class="square"></div>
-                    <div class="square"></div>
-                    <div class="square"></div>
-                    <div class="square"></div>
-                    <div class="square"></div>
-                    <div class="square"></div>
-                    <div class="square"></div>
-                    <div class="square"></div>
-                    <div class="square"></div>
-                </div>
-            </div> 
-          </div>
-        </b-card>
+		<b-col md="6" class="mx-auto">
+			<b-card header="Sobre" border-variant="info">
+				<link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
+				<div class="container-fluid">
+				<div id="bezel" class="container">
+					<hr id="line-top">
+					<hr id="line-btm">
+						<div class="container">
+						<div class="row">
+							<div id="power-led" class=" col-lg-1 col-md-1 col-sm-1"><i class="fa fa-circle" aria-hidden="true"></i>
+							</div><!-- Power LED -->
+							<div id="screen" class="col-lg-10 col-md-10 col-sm-10">
+							<div class='quote-text'>
+								<span>Sistema desenvolvido pelo Engenheiro de Computação Nikolas Vago Serafini,
+									no intuito de facilitar o controle de serviços das empresas de Marcos Alvany Vago.
+								</span>
+								<p>
+									<span>
+										Para qualquer dúvida, bug ou esclarecimento, entrar em contato no e-mail: <strong>nikolas.serafini@gmail.com</strong>
+									</span>
+								</p>
+							</div>
+							<div class='quote-author'></div><!-- Randome Quote -->
+							</div> <!-- screen -->
+						</div><!-- Screen and power led -->
+						</div><!-- inner container -->
+						<p id="credit" class="text-center"><strong>Nintendo Gameboy</strong>
+						</p>
+				</div><!---Bezel Container -->
+				<!-- Buttons -->
+				</div><!---Main gb body/container -->
+        	</b-card>
+		</b-col>
     </div>
 </template>
 
-<style lang="scss">
-$size: 100px;
-$default-color: #7f8c8d;
-$hover-color: #2980b9;
-
-* {
-	margin: 0;
-	padding: 0;
-	color: inherit;
-	box-sizing: inherit;
-
-	&:focus {
-		outline: none;
-	}
+<style>
+a {
+  color:#45464e;
 }
 
-html {
-	box-sizing: border-box;
+a:hover {
+  color:#8B163F;
+  text-decoration:none;
 }
 
-body {
-	// background-color: #ecf0f1;
-	font-family: 'Open Sans', sans-serif;
-	overflow: hidden;
+#bezel {
+  margin-bottom:50px;
+  border-radius: 15px 15px 65px 15px; 
+  padding:5px 25px 15px 15px;
+  background-color:#666874;
+  width:400px;
 }
 
-.animate {
-	transition: all 0.3s cubic-bezier(0.310, -0.105, 0.430, 1.590);
+#credit {
+  padding:25px 0px 0px 0px;
+  line-height:0px;
+  color:#45464e;
 }
 
-.menu-toggle {
-	width: $size;
-	height: $size;
-	margin: auto;
-	cursor: pointer;
-	position: relative;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	@extend .animate;
-	
-	&:before,
-	&:after {
-		height: $size;
-		line-height: $size;
-		margin-right: 30px;
-		padding-right: 100%;
-		font-weight: 600;
-		font-size: 25px;
-		position: absolute;
-		top: 0;
-		right: 0;
-		@extend .animate;
-	}
-	
-	&:before {
-		content: 'Nikolas';
-		color: $default-color;
-		transform: rotate(0deg);
-	}
-	
-	&:after {
-		content: 'Software';
-		color: $hover-color;
-		opacity: 0;
-		transform: rotate(-45deg);
-	}
-	
-	.icon {
-		width: $size;
-		height: $size;
-		position: relative;
-		top: 0;
-		right: 0;
-		@extend .animate;
+#line-top {
+  background-color:#8B163F;
+  height:1px;
+  margin:15px 0px 5px 10px;
+}
 
-		.square {
-			background-color: $default-color;
-			width: 24%;
-			height: 24%;
-			position: absolute;
-			@extend .animate;
+#line-btm {
+  background-color:#0c0b44;
+  height:1px;
+  margin:8px 0px 15px 10px;
+}
 
-			&:nth-child(1) {
-				top: 0;
-				left: 0;
-			}
+#power-led {
+  color:#f40000;
+  text-shadow: 0 0 10px #FE0000;
+  text-align:center;
+  padding: 75px 10px 0px 0px;
+}
 
-			&:nth-child(2) {
-				top: 0;
-				left: 38%;
-			}
+#screen {
+  margin:5px;
+  height: auto;
+  min-height:250px;
+  background-color:#8BAC0F;
+  padding:25px 25px 0px 25px;
+}
 
-			&:nth-child(3) {
-				top: 0;
-				left: 76%;
-			}
+.quote-text {
+  color:#306230;
+  font-family: 'VT323', monospace;
+  font-size:1.212em	;
+  
+}
 
-			&:nth-child(4) {
-				top: 38%;
-				left: 0;
-			}
+.quote-author {
+  color:#306230;
+  font-family: 'VT323', monospace;
+  padding-top:10px;
+}
 
-			&:nth-child(5) {
-				top: 38%;
-				left: 38%;
-			}
+.btns {
+  position:relative;
+  top:25px;
+  left:100px;
+  width: 155px;
+  transform: rotate(-35deg);
+  margin: 0 auto;
+}
 
-			&:nth-child(6) {
-				top: 38%;
-				left: 76%;
-			}
+.round-btn {
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  background-color:#8B163F;
+  margin-left:10px;
+}
 
-			&:nth-child(7) {
-				top: 76%;
-				left: 0;
-			}
+#tweet {
+  color:#490f23;
+  transform: rotate(35deg);
+}
 
-			&:nth-child(8) {
-				top: 76%;
-				left: 38%;
-			}
-
-			&:nth-child(9) {
-				top: 76%;
-				left: 76%;
-			}
-		}
-	}
-
-	&:hover {
-		
-		&:before {
-			opacity: 0;
-			transform: rotate(45deg);
-		}
-		
-		&:after {
-			opacity: 1;
-			transform: rotate(0deg);
-		}
-		
-		.icon {
-			transform: rotate(45deg);
-
-			.square {
-				background-color: $hover-color;
-
-				&:nth-child(1),
-				&:nth-child(3),
-				&:nth-child(7),
-				&:nth-child(9) {
-					opacity: 0;	
-				}
-			}
-		}
-	}
-	
-	&:active {
-		opacity: .8;
-	}
+#quote {
+  color:#490f23;
+  transform: rotate(35deg);
 }
 </style>
-
-
-<script>
-export default {
-
-}
-</script>
