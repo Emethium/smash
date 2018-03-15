@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'sessions/new'
+
   root to: 'pages#index'
 
   namespace 'api' do
@@ -7,6 +9,9 @@ Rails.application.routes.draw do
       get 'costumers/search', to: 'costumers#search'
       get 'equipments/search', to: 'equipments#search'
       get 'services/search', to: 'services#search'
+      get    '/login',   to: 'sessions#new'
+      post   '/login',   to: 'sessions#create'
+      delete '/logout',  to: 'sessions#destroy'
   		resources :companies
       resources :costumers
       resources :equipments
