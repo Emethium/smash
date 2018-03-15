@@ -1,36 +1,35 @@
 <template>
 	<!-- Credits for the Gameboy CSS goes to Red X at https://www.freecodecamp.com/llredxll -->
     <div class="wrapper">
-		<b-col md="6" class="mx-auto">
+		<b-col md="7" class="mx-auto">
 			<b-card header="Sobre" border-variant="info">
 				<link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
 				<div class="container-fluid">
-				<div id="bezel" class="container">
-					<hr id="line-top">
-					<hr id="line-btm">
-						<div class="container">
-						<div class="row">
-							<div id="power-led" class=" col-lg-1 col-md-1 col-sm-1"><i class="fa fa-circle" aria-hidden="true"></i>
-							</div><!-- Power LED -->
-							<div id="screen" class="col-lg-10 col-md-10 col-sm-10">
-							<div class='quote-text'>
-								<span>Sistema desenvolvido pelo Engenheiro de Computação Nikolas Vago Serafini,
-									no intuito de facilitar o controle de serviços das empresas de Marcos Alvany Vago.
-								</span>
-								<p>
-									<span>
-										Para qualquer dúvida, bug ou esclarecimento, entrar em contato no e-mail: <strong>nikolas.serafini@gmail.com</strong>
-									</span>
-								</p>
-							</div>
-							<div class='quote-author'></div><!-- Randome Quote -->
-							</div> <!-- screen -->
-						</div><!-- Screen and power led -->
-						</div><!-- inner container -->
-						<p id="credit" class="text-center"><strong>Nintendo Gameboy</strong>
-						</p>
-				</div><!---Bezel Container -->
-				<!-- Buttons -->
+          <div id="bezel" class="container mx-auto">
+            <hr id="line-top">
+            <hr id="line-btm">
+              <div class="container">
+              <div class="row">
+                <div id="power-led" class=" col-lg-1 col-md-1 col-sm-1"><i class="fa fa-circle" aria-hidden="true"></i>
+                </div><!-- Power LED -->
+                <div id="screen" class="col-lg-10 col-md-10 col-sm-10">
+                <div class='quote-text'>
+                  <span>Sistema desenvolvido pelo Engenheiro de Computação Nikolas Vago Serafini,
+                    no intuito de facilitar o controle de serviços das empresas de Marcos Alvany Vago.
+                  </span>
+                  <p>
+                    <span>
+                      Para qualquer dúvida, bug ou esclarecimento, entrar em contato no e-mail: <strong>nikolas.serafini@gmail.com</strong>
+                    </span>
+                  </p>
+                </div>
+                <div class='quote-author'></div><!-- Randome Quote -->
+                </div> <!-- screen -->
+              </div><!-- Screen and power led -->
+              </div><!-- inner container -->
+              <p id="credit" class="text-center"><strong>Nintendo Gameboy</strong>
+              </p>
+          </div><!---Bezel Container -->
 				</div><!---Main gb body/container -->
         	</b-card>
 		</b-col>

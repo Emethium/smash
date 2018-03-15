@@ -29,9 +29,8 @@
             <b-card no-body class="text-white bg-primary py-5 d-md-down-none" style="width:44%">
               <b-card-body class="text-center">
                 <div>
-                  <h2>Sign up</h2>
-                  <p>Deseja criar uma nova conta?</p>
-                  <b-button variant="primary" class="active mt-3">Cadastre agora!</b-button>
+                  <h1>Smash</h1>
+                  <p>Gerenciador de Serviços e Empresas</p>
                 </div>
               </b-card-body>
             </b-card>

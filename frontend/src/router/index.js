@@ -49,8 +49,8 @@ import Modals from '@/views/notifications/Modals'
 // Views - Pages
 import Page404 from '@/views/pages/Page404'
 import Page500 from '@/views/pages/Page500'
-import Login from '@/views/pages/Login'
 import Register from '@/views/pages/Register'
+import Login from '@/views/pages/Login'
 
 // View - Other pages
 import Home from '@/views/home/HomeView'
@@ -94,7 +94,7 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/home',
+      redirect: '/pages/login',
       name: 'Home',
       component: Full,
       children: [
@@ -466,14 +466,14 @@ export default new Router({
           component: Page404
         },
         {
-          path: '500',
-          name: 'Page500',
-          component: Page500
-        },
-        {
           path: 'login',
           name: 'Login',
           component: Login
+        },
+        {
+          path: '500',
+          name: 'Page500',
+          component: Page500
         },
         {
           path: 'register',
