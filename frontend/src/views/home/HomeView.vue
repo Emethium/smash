@@ -22,7 +22,7 @@
           <i class="icon-basket-loaded"></i>
         </div>
         <div class="h4 mb-0">{{this.monthly_services.length}}</div>
-        <small class="text-muted text-uppercase font-weight-bold">Serviços atendidos no mês</small>
+        <small class="text-muted text-uppercase font-weight-bold">Serviços atendidos e provisionados no mês</small>
         <b-progress height={} class="progress-xs mt-3 mb-0" variant="warning" :value="99"/>
       </b-card>
       <b-card>  
@@ -38,7 +38,7 @@
           <i class="fa fa-money"></i>
         </div>
         <div class="h4 mb-0">R$ {{this.earnings}}</div>
-        <small class="text-muted text-uppercase font-weight-bold">Arrecadação no mês</small>
+        <small class="text-muted text-uppercase font-weight-bold">Previsão de arrecadação mensal</small>
         <b-progress height={} class="progress-xs mt-3 mb-0" variant="danger" :value="99"/>
       </b-card>
     </b-card-group>

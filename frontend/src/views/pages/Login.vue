@@ -30,7 +30,7 @@
               <b-card-body class="text-center">
                 <div>
                   <h1>Smash</h1>
-                  <p>Gerenciador de Serviços e Empresas</p>
+                  <p>Gerenciador de Serviços e Recursos para as Empresas <strong>Vago Engenharia Ltda</strong></p>
                 </div>
               </b-card-body>
             </b-card>

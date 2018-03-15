@@ -98,6 +98,8 @@ export default {
       next_service: '',
       kinds: [],
       companies: [],
+      vehicles: [],
+      clients: [],
       dismissSecs: 3,
       dismissCountDown: 0,
       showDismissibleAlert: false,
@@ -117,6 +119,18 @@ export default {
         this.loading = true
         this.$data.kinds = response.data.data
         this.$data.kinds = this.sortByKey(this.$data.kinds, 'kind')
+      }).catch(e => { this.errors.push(e) })
+    axios.get(`/api/v1/equipments`).then(
+      response => {
+        this.loading = true
+        this.$data.vehicles = response.data.data
+        this.$data.vehicles = this.sortByKey(this.$data.vehicles, 'plate')
+      }).catch(e => { this.errors.push(e) })
+    axios.get(`/api/v1/costumers`).then(
+      response => {
+        this.loading = true
+        this.$data.clients = response.data.data
+        this.$data.clients = this.sortByKey(this.$data.clients, 'name')
       }).catch(e => { this.errors.push(e) })
     axios.get(`/api/v1/services/${id}`).then(
       response => {
@@ -153,6 +167,7 @@ export default {
       this.$data.next_service = ''
     },
     notifyUser () {
+      this.goToTop()
       this.showAlert()
       this.goBack()
     },
@@ -164,6 +179,9 @@ export default {
     },
     goBackNow () {
       this.$router.go(-1)
+    },
+    goToTop () {
+      scroll(0, 0)
     },
     updateData () {
       const id = this.$route.params.id
