@@ -55,6 +55,7 @@ import Login from '@/views/pages/Login'
 // View - Other pages
 import Home from '@/views/home/HomeView'
 import About from '@/views/about/About'
+import Logout from '@/views/logout/Logout'
 
 // Views - Clients
 import ClientSearch from '@/views/clients/ClientSearch'
@@ -107,6 +108,11 @@ export default new Router({
           path: 'home',
           name: 'Página Inicial',
           component: Home
+        },
+        {
+          path: 'logout',
+          name: 'Logout',
+          component: Logout
         },
         {
           path: 'about',

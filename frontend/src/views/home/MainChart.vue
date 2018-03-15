@@ -73,8 +73,8 @@ export default {
           ticks: {
             beginAtZero: true,
             maxTicksLimit: 5,
-            stepSize: Math.ceil(30 / 5),
-            max: 30
+            stepSize: Math.ceil(50 / 5),
+            max: 50
           },
           gridLines: {
             display: true

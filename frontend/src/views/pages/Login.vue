@@ -10,15 +10,15 @@
                 <p class="text-muted">Entre com os seus dados de acesso</p>
                 <b-input-group class="mb-3">
                   <div class="input-group-prepend"><span class="input-group-text"><i class="icon-user"></i></span></div>
-                  <input type="text" class="form-control" placeholder="Nome de usuário">
+                  <input type="text" v-model="username" class="form-control" placeholder="Nome de usuário">
                 </b-input-group>
                 <b-input-group class="mb-4">
                   <div class="input-group-prepend"><span class="input-group-text"><i class="icon-lock"></i></span></div>
-                  <input type="password" class="form-control" placeholder="Senha">
+                  <input type="password" v-model="password" class="form-control" placeholder="Senha">
                 </b-input-group>
                 <b-row>
                   <b-col cols="6">
-                    <b-button variant="primary" class="px-4">Login</b-button>
+                    <b-button v-on:click="login()" variant="primary" class="px-4">Login</b-button>
                   </b-col>
                   <b-col cols="6" class="text-right">
                     <b-button variant="link" class="px-0">Esqueceu a senha?</b-button>
@@ -42,7 +42,40 @@
 </template>
 
 <script>
+import store from '@/store'
+import axios from 'axios'
+
 export default {
-  name: 'Login'
+  name: 'Login',
+  data: () => {
+    return {
+      loading: false,
+      username: '',
+      password: ''
+    }
+  },
+  beforeCreate () {
+    if (store.state.isLogged) {
+      this.router.push('/')
+    }
+  },
+  methods: {
+    login () {
+      this.loader = true
+      this.infoError = false
+      axios.post('/api/v1/login', {
+        username: this.username,
+        password: this.password
+      }).then((response) => {
+        localStorage.setItem('token', response.body.token)
+        store.commit('LOGIN_USER')
+        this.router.push('/')
+      }, () => {
+        this.infoError = true
+        this.loader = false
+        this.password = ''
+      })
+    }
+  }
 }
 </script>
