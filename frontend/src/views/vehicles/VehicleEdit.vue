@@ -77,13 +77,13 @@ export default {
   },
   created () {
     const id = this.$route.params.id
-    axios.get(`/api/v1/equipment_types`).then(
+    axios.get(`/api/v1/equipment_types`, {headers: {Authorization: localStorage.getItem('token')}}).then(
       response => {
         this.loading = true
         this.$data.kinds = response.data.data
         this.$data.kinds = this.sortByKey(this.$data.kinds, 'kind')
       }).catch(e => { this.errors.push(e) })
-    axios.get(`/api/v1/equipments/${id}`).then(
+    axios.get(`/api/v1/equipments/${id}`, {headers: {Authorization: localStorage.getItem('token')}}).then(
       response => {
         this.$data.plate = response.data.data.plate
         this.$data.chassis = response.data.data.chassis
@@ -134,7 +134,7 @@ export default {
         control_number: this.$data.control,
         proprietary: this.$data.proprietary,
         kind: this.$data.kind
-      }).then(response => { console.log(response) }).catch(e => {
+      }, {headers: {Authorization: localStorage.getItem('token')}}).then(response => { console.log(response) }).catch(e => {
         this.errors.push(e)
         console.log(e)
       }).then(this.notifyUser())

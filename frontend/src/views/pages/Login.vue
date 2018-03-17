@@ -69,7 +69,6 @@ export default {
       }).then((response) => {
         console.log(response)
         localStorage.setItem('token', response.data.auth_token)
-        console.log('localstorage set!')
         store.commit('LOGIN_USER')
         this.$router.push('/home')
       }, () => {

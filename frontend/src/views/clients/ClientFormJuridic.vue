@@ -119,7 +119,7 @@ export default {
         kind: '1',
         register_code: this.$data.register_code,
         social_reason: this.$data.social_reason
-      }).then(response => {}).catch(e => {
+      }, {headers: {Authorization: localStorage.getItem('token')}}).then(response => {}).catch(e => {
         this.errors.push(e)
       }).then(this.showAlert())
     }

@@ -59,7 +59,7 @@ export default {
   },
   created () {
     const id = this.$route.params.id
-    axios.get(`/api/v1/costumers/${id}`).then(
+    axios.get(`/api/v1/costumers/${id}`, {headers: {Authorization: localStorage.getItem('token')}}).then(
       response => {
         this.$data.loading = true
         this.$data.name = response.data.data.name
@@ -100,7 +100,7 @@ export default {
         name: this.$data.name,
         register_code: this.$data.register_code,
         email: this.$data.email
-      }).then(response => { console.log(response) }).catch(e => {
+      }, {headers: {Authorization: localStorage.getItem('token')}}).then(response => { console.log(response) }).catch(e => {
         this.errors.push(e)
         console.log(e)
       }).then(this.notifyUser())

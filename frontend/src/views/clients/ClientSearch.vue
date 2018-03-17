@@ -102,7 +102,7 @@ export default {
     }
   },
   created () {
-    axios.get(`/api/v1/costumers`).then(
+    axios.get(`/api/v1/costumers`, {headers: {Authorization: localStorage.getItem('token')}}).then(
       response => {
         this.loading = true
         this.autoCompleteData = response.data.data
@@ -128,6 +128,9 @@ export default {
     submitSearch () {
       this.evalueKind()
       axios.get('/api/v1/costumers/search', {
+        headers: {
+          Authorization: localStorage.getItem('token')
+        },
         params: {
           name: this.$data.name,
           register_code: this.$data.register_code,

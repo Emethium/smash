@@ -52,17 +52,15 @@
                         </b-form>
                     </b-form-group>
                     <b-form-group>
-                        <b-form validated novalidate>
-                            <b-form-group label-for="inputError2" label="Nome do Proprietário:">
-                                <b-form-input type="text" v-model="costumer" class="form-control-warning" placeholder="Digite o nome do proprietário" id="costumer" required></b-form-input>
-                                <b-form-valid-feedback>
-                                    Proprietário inserido! <span class="fa fa-hand-peace-o fa-lg mt-2"></span>
-                                </b-form-valid-feedback>
-                                <b-form-invalid-feedback>
-                                    Por favor, insira o proprietário do veículo <span class="fa fa-frown-o fa-lg mt-2"></span>
-                                </b-form-invalid-feedback>
-                            </b-form-group>
-                        </b-form>
+                      <label for="name">Nome do Proprietário:</label>
+                      <autocomplete
+                        ref="costumers"
+                        :source="costumers"
+                        results-property="name"
+                        :results-display="formattedDisplay"
+                        @selected="addName"
+                        placeholder="Entre com o nome do cliente ou empresa">
+                      </autocomplete>
                     </b-form-group>
                     <b-form-group
                         label="Tipo de equipamento:"
@@ -87,9 +85,13 @@
 
 <script>
 import axios from 'axios'
+import Autocomplete from 'vuejs-auto-complete'
 
 export default {
   name: 'vehicleForm',
+  components: {
+    Autocomplete
+  },
   data () {
     return {
       plate: '',
@@ -98,6 +100,7 @@ export default {
       costumer: '',
       kind: '',
       kinds: [],
+      costumers: [],
       dismissSecs: 3,
       dismissCountDown: 0,
       showDismissibleAlert: false,
@@ -105,16 +108,22 @@ export default {
     }
   },
   created () {
-    axios.get(`/api/v1/equipment_types`).then(
+    axios.get(`/api/v1/equipment_types`, {headers: {Authorization: localStorage.getItem('token')}}).then(
       response => {
         this.loading = true
         this.$data.kinds = response.data.data
         this.$data.kinds = this.sortByKey(this.$data.kinds, 'kind')
       }).catch(e => { this.errors.push(e) })
+    axios.get(`/api/v1/costumers`, {headers: {Authorization: localStorage.getItem('token')}}).then(
+      response => {
+        this.loading = true
+        this.costumers = response.data.data
+        this.costumers = this.sortByKey(this.costumers, 'name')
+      }).catch(e => { this.errors.push(e) })
   },
   methods: {
-    click () {
-      // do nothing
+    formattedDisplay (result) {
+      return result.name
     },
     countDownChanged (dismissCountDown) {
       this.dismissCountDown = dismissCountDown
@@ -139,7 +148,11 @@ export default {
       this.$data.control = ''
       this.$data.costumer = ''
       this.$data.kind = ''
+      this.$refs.costumers.clearValues()
       console.log('cleared all entry text fields')
+    },
+    addName (client) {
+      this.$data.costumer = client.selectedObject.name
     },
     sendData () {
       console.log('sending data with: \nplate -> ' + this.$data.plate + '\nchassis -> ' + this.$data.chassis + '\n control -> ' + this.$data.control +
@@ -150,7 +163,7 @@ export default {
         control_number: this.$data.control,
         proprietary: this.$data.costumer,
         kind: this.$data.kind
-      }).then(response => {}).catch(e => {
+      }, {headers: {Authorization: localStorage.getItem('token')}}).then(response => {}).catch(e => {
         this.errors.push(e)
       }).then(this.showAlert())
     }

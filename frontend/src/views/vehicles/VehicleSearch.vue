@@ -122,18 +122,18 @@ export default {
     }
   },
   created () {
-    axios.get(`/api/v1/equipment_types`).then(
+    axios.get(`/api/v1/equipment_types`, {headers: {Authorization: localStorage.getItem('token')}}).then(
       response => {
         this.loading = true
         this.$data.kinds = response.data.data
         this.$data.kinds = this.sortByKey(this.$data.kinds, 'kind')
       }).catch(e => { this.errors.push(e) })
-    axios.get(`/api/v1/equipments`).then(
+    axios.get(`/api/v1/equipments`, {headers: {Authorization: localStorage.getItem('token')}}).then(
       response => {
         this.loading = true
         this.$data.autoCompleteData = response.data.data
       }).catch(e => { this.errors.push(e) })
-    axios.get(`/api/v1/costumers`).then(
+    axios.get(`/api/v1/costumers`, {headers: {Authorization: localStorage.getItem('token')}}).then(
       response => {
         this.loading = true
         this.$data.clients = response.data.data
@@ -183,6 +183,9 @@ export default {
           this.$data.chassis + '\ncontrol -> ' + this.$data.control + '\nkind -> ' + this.$data.kind + '\nproprietary ->' + this.proprietary)
 
       axios.get('/api/v1/equipments/search', {
+        headers: {
+          Authorization: localStorage.getItem('token')
+        },
         params: {
           plate: this.$data.plate,
           chassis: this.$data.chassis,
