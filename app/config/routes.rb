@@ -9,9 +9,7 @@ Rails.application.routes.draw do
       get 'costumers/search', to: 'costumers#search'
       get 'equipments/search', to: 'equipments#search'
       get 'services/search', to: 'services#search'
-      get    '/login',   to: 'sessions#new'
-      post   '/login',   to: 'sessions#create'
-      delete '/logout',  to: 'sessions#destroy'
+      post 'authenticate', to: 'authentication#authenticate'
   		resources :companies
       resources :costumers
       resources :equipments
