@@ -212,25 +212,25 @@ export default {
     }
   },
   created () {
-    axios.get(`/api/v1/service_types`).then(
+    axios.get(`/api/v1/service_types`, {headers: {Authorization: localStorage.getItem('token')}}).then(
       response => {
         this.loading = true
         this.$data.kinds = response.data.data
         this.$data.kinds = this.sortByKey(this.$data.kinds, 'kind')
       }).catch(e => { this.errors.push(e) })
-    axios.get(`/api/v1/companies`).then(
+    axios.get(`/api/v1/companies`, {headers: {Authorization: localStorage.getItem('token')}}).then(
       response => {
         this.loading = true
         this.$data.companies = response.data.data
         this.$data.companies = this.sortByKey(this.$data.companies, 'name')
       }).catch(e => { this.errors.push(e) })
-    axios.get(`/api/v1/equipments`).then(
+    axios.get(`/api/v1/equipments`, {headers: {Authorization: localStorage.getItem('token')}}).then(
       response => {
         this.loading = true
         this.$data.vehicles = response.data.data
         this.$data.vehicles = this.sortByKey(this.$data.vehicles, 'plate')
       }).catch(e => { this.errors.push(e) })
-    axios.get(`/api/v1/costumers`).then(
+    axios.get(`/api/v1/costumers`, {headers: {Authorization: localStorage.getItem('token')}}).then(
       response => {
         this.loading = true
         this.$data.clients = response.data.data
@@ -288,6 +288,9 @@ export default {
     submitSearch () {
       this.$data.result = false
       axios.get('/api/v1/services/search', {
+        headers: {
+          Authorization: localStorage.getItem('token')
+        },
         params: {
           name: this.$data.kind,
           company: this.$data.company,

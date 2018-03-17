@@ -119,19 +119,19 @@ export default {
     }
   },
   created () {
-    axios.get(`/api/v1/service_types`).then(
+    axios.get(`/api/v1/service_types`, {headers: {Authorization: localStorage.getItem('token')}}).then(
       response => {
         this.loading = true
         this.$data.kinds = response.data.data
         this.$data.kinds = this.sortByKey(this.$data.kinds, 'kind')
       }).catch(e => { this.errors.push(e) })
-    axios.get(`/api/v1/companies`).then(
+    axios.get(`/api/v1/companies`, {headers: {Authorization: localStorage.getItem('token')}}).then(
       response => {
         this.loading = true
         this.$data.companies = response.data.data
         this.$data.companies = this.sortByKey(this.$data.companies, 'name')
       }).catch(e => { this.errors.push(e) })
-    axios.get(`/api/v1/equipments`).then(
+    axios.get(`/api/v1/equipments`, {headers: {Authorization: localStorage.getItem('token')}}).then(
       response => {
         this.loading = true
         this.$data.vehicles = response.data.data
@@ -184,7 +184,7 @@ export default {
         company: this.$data.company,
         done_at: this.$data.done_at,
         next_service: this.$data.next_service
-      }).then(response => {}).catch(e => {
+      }, {headers: {Authorization: localStorage.getItem('token')}}).then(response => {}).catch(e => {
         this.errors.push(e)
       }).then(this.showAlert())
     }

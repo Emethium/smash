@@ -70,7 +70,7 @@ export default {
       console.log('sending data with new kind: ' + this.kind)
       axios.post('/api/v1/service_types/', {
         kind: this.kind
-      }).then(response => {}).catch(e => {
+      }, {headers: {Authorization: localStorage.getItem('token')}}).then(response => {}).catch(e => {
         this.errors.push(e)
       }).then(this.showAlert())
     }

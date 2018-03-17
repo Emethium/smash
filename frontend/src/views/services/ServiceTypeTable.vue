@@ -85,7 +85,7 @@
       }
     },
     created () {
-      axios.get(`/api/v1/service_types`).then(
+      axios.get(`/api/v1/service_types`, {headers: {Authorization: localStorage.getItem('token')}}).then(
         response => {
           this.loading = true
           this.items = response.data.data
@@ -111,7 +111,7 @@
       },
       deleteData () {
         console.log('asking object with id -> ' + this.$data.id + ' and name -> ' + this.$data.kind + ' for deletion')
-        axios.delete(`/api/v1/service_types/${this.$data.id}`).then(
+        axios.delete(`/api/v1/service_types/${this.$data.id}`, {headers: {Authorization: localStorage.getItem('token')}}).then(
           response => { console.log(response) }).catch(e => {
           this.errors.push(e)
           console.log(e)

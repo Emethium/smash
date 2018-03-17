@@ -91,7 +91,7 @@ export default {
   },
   created () {
     const id = this.$route.params.id
-    axios.get(`/api/v1/companies/${id}`).then(
+    axios.get(`/api/v1/companies/${id}`, {headers: {Authorization: localStorage.getItem('token')}}).then(
       response => {
         this.loading = true
         this.name = response.data.data.name
@@ -140,7 +140,7 @@ export default {
         email: this.email,
         city: this.city,
         state: this.state
-      }).then(response => { console.log(response) }).catch(e => {
+      }, {headers: {Authorization: localStorage.getItem('token')}}).then(response => { console.log(response) }).catch(e => {
         this.errors.push(e)
         console.log(e)
       }).then(this.notifyUser())

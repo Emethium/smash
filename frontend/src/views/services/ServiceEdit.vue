@@ -108,31 +108,31 @@ export default {
   },
   created () {
     const id = this.$route.params.id
-    axios.get(`/api/v1/companies`).then(
+    axios.get(`/api/v1/companies`, {headers: {Authorization: localStorage.getItem('token')}}).then(
       response => {
         this.loading = true
         this.$data.companies = response.data.data
         this.$data.companies = this.sortByKey(this.$data.companies, 'name')
       }).catch(e => { this.errors.push(e) })
-    axios.get(`/api/v1/service_types`).then(
+    axios.get(`/api/v1/service_types`, {headers: {Authorization: localStorage.getItem('token')}}).then(
       response => {
         this.loading = true
         this.$data.kinds = response.data.data
         this.$data.kinds = this.sortByKey(this.$data.kinds, 'kind')
       }).catch(e => { this.errors.push(e) })
-    axios.get(`/api/v1/equipments`).then(
+    axios.get(`/api/v1/equipments`, {headers: {Authorization: localStorage.getItem('token')}}).then(
       response => {
         this.loading = true
         this.$data.vehicles = response.data.data
         this.$data.vehicles = this.sortByKey(this.$data.vehicles, 'plate')
       }).catch(e => { this.errors.push(e) })
-    axios.get(`/api/v1/costumers`).then(
+    axios.get(`/api/v1/costumers`, {headers: {Authorization: localStorage.getItem('token')}}).then(
       response => {
         this.loading = true
         this.$data.clients = response.data.data
         this.$data.clients = this.sortByKey(this.$data.clients, 'name')
       }).catch(e => { this.errors.push(e) })
-    axios.get(`/api/v1/services/${id}`).then(
+    axios.get(`/api/v1/services/${id}`, {headers: {Authorization: localStorage.getItem('token')}}).then(
       response => {
         this.$data.kind = response.data.data.name
         this.$data.company = response.data.data.company
@@ -193,7 +193,7 @@ export default {
         cost: this.$data.cost,
         done_at: this.$data.done_at,
         next_service: this.$data.next_service
-      }).then(response => { console.log(response) }).catch(e => {
+      }, {headers: {Authorization: localStorage.getItem('token')}}).then(response => { console.log(response) }).catch(e => {
         this.errors.push(e)
         console.log(e)
       }).then(this.notifyUser())

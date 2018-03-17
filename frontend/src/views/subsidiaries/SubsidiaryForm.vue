@@ -112,9 +112,6 @@ export default {
     }
   },
   methods: {
-    click () {
-      // do nothing
-    },
     countDownChanged (dismissCountDown) {
       this.dismissCountDown = dismissCountDown
     },
@@ -144,7 +141,7 @@ export default {
         cnpj: this.$data.cnpj,
         city: this.$data.city,
         state: this.$data.state
-      }).then(response => {}).catch(e => {
+      }, {headers: {Authorization: localStorage.getItem('token')}}).then(response => {}).catch(e => {
         this.errors.push(e)
       }).then(this.showAlert())
     }

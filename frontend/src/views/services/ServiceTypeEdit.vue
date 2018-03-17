@@ -45,7 +45,7 @@ export default {
   },
   created () {
     const id = this.$route.params.id
-    axios.get(`/api/v1/service_types/${id}`).then(
+    axios.get(`/api/v1/service_types/${id}`, {headers: {Authorization: localStorage.getItem('token')}}).then(
       response => {
         this.loading = true
         this.kind = response.data.data.kind
@@ -79,7 +79,7 @@ export default {
       const id = this.$route.params.id
       axios.patch(`/api/v1/service_types/${id}`, {
         kind: this.kind
-      }).then(response => { console.log(response) }).catch(e => {
+      }, {headers: {Authorization: localStorage.getItem('token')}}).then(response => { console.log(response) }).catch(e => {
         this.errors.push(e)
         console.log(e)
       }).then(this.notifyUser())

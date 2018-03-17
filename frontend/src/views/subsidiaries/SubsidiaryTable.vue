@@ -94,7 +94,7 @@
       }
     },
     created () {
-      axios.get(`/api/v1/companies`).then(
+      axios.get(`/api/v1/companies`, {headers: {Authorization: localStorage.getItem('token')}}).then(
         response => {
           this.loading = true
           this.items = response.data.data
@@ -128,7 +128,7 @@
       deleteData () {
         console.log('asking object with id -> ' + this.$data.id + '\nname -> ' + this.$data.name +
         '\ncity -> ' + this.$data.city + ' for deletion')
-        axios.delete(`/api/v1/companies/${this.$data.id}`).then(
+        axios.delete(`/api/v1/companies/${this.$data.id}`, {headers: {Authorization: localStorage.getItem('token')}}).then(
           response => { console.log(response) }).catch(e => {
           this.errors.push(e)
           console.log(e)
