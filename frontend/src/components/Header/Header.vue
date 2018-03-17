@@ -7,23 +7,28 @@
     <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button" @click="sidebarToggle">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <b-navbar-nav class="d-md-down-none">
-      
-    </b-navbar-nav>
     <b-navbar-nav class="ml-auto">
-      
-      
+    <HeaderDropdown/>
     </b-navbar-nav>
-    
   </header>
 </template>
 <script>
   import HeaderDropdown from './HeaderDropdown.vue'
+  import store from '@/store'
 
   export default {
     name: 'c-header',
     components: {
       HeaderDropdown
+    },
+    data: () => {
+      return {
+        username: ''
+      }
+    },
+    beforeCreate () {
+      this.username = localStorage.getItem('username')
+      console.log(localStorage.getItem('username'))
     },
     methods: {
       sidebarToggle (e) {
@@ -41,6 +46,12 @@
       asideToggle (e) {
         e.preventDefault()
         document.body.classList.toggle('aside-menu-hidden')
+      },
+      logout () {
+        localStorage.removeItem('token')
+        localStorage.removeItem('username')
+        store.commit('LOGOUT_USER')
+        this.$router.push('/login')
       }
     }
   }

@@ -7,7 +7,13 @@
             <b-card no-body class="p-4">
               <b-card-body>
                 <h1>Login</h1>
-                <p class="text-muted">Entre com os seus dados de acesso</p>
+                <p class="text-muted">Entre com os seus dados de acesso:</p>
+                <b-alert :show="dismissCountDown"
+                       variant="danger"
+                       @dismissed="dismissCountdown=0"
+                       @dismiss-count-down="countDownChanged">
+                       Nome de Usuário ou Senha inválidos!
+                </b-alert>
                 <b-input-group class="mb-3">
                   <div class="input-group-prepend"><span class="input-group-text"><i class="icon-user"></i></span></div>
                   <input type="text" v-model="username" class="form-control" placeholder="Nome de usuário">
@@ -51,7 +57,10 @@ export default {
     return {
       loading: false,
       username: '',
-      password: ''
+      password: '',
+      dismissSecs: 3,
+      dismissCountDown: 0,
+      showDismissibleAlert: false
     }
   },
   beforeCreate () {
@@ -69,13 +78,24 @@ export default {
       }).then((response) => {
         console.log(response)
         localStorage.setItem('token', response.data.auth_token)
+        localStorage.setItem('username', this.username)
         store.commit('LOGIN_USER')
         this.$router.push('/home')
       }, () => {
         this.infoError = true
         this.loader = false
         this.password = ''
+        if (this.infoError) {
+          console.log('showing error')
+          this.alertLoginError()
+        }
       })
+    },
+    alertLoginError () {
+      this.dismissCountDown = this.dismissSecs
+    },
+    countDownChanged (dismissCountDown) {
+      this.dismissCountDown = dismissCountDown
     }
   }
 }
