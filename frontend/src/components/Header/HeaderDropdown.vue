@@ -1,10 +1,10 @@
 <template>
       <b-nav-item-dropdown right no-caret>
         <template slot="button-content">
-          <img src="static/img/avatars/6.jpg" class="img-avatar" alt="admin@bootstrapmaster.com">
+          <img src="static/img/avatars/user.png" class="img-avatar">
         </template>
-        <b-dropdown-header tag="div" class="text-center"><strong>Conta</strong></b-dropdown-header>
-        <b-dropdown-item v-on:click="logout()"><i class="fa fa-lock"></i> Logout</b-dropdown-item>
+        <b-dropdown-header tag="div" class="text-center"><strong>{{this.username}}</strong></b-dropdown-header>
+        <b-dropdown-item v-on:click="logout()"><i class="fa fa-lock"></i>Sair</b-dropdown-item>
       </b-nav-item-dropdown>
 </template>
 <script>
@@ -17,9 +17,9 @@
         itemsCount: 42
       }
     },
-    beforeCreate () {
+    created () {
       this.username = localStorage.getItem('username')
-      console.log(localStorage.getItem('username'))
+      console.log('Im at the header' + localStorage.getItem('username'))
     },
     methods: {
       logout () {
