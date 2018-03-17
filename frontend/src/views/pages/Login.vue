@@ -56,20 +56,22 @@ export default {
   },
   beforeCreate () {
     if (store.state.isLogged) {
-      this.router.push('/')
+      this.$router.push('/')
     }
   },
   methods: {
     login () {
       this.loader = true
       this.infoError = false
-      axios.post('/api/v1/login', {
+      axios.post('/api/v1/authenticate', {
         username: this.username,
         password: this.password
       }).then((response) => {
-        localStorage.setItem('token', response.body.token)
+        console.log(response)
+        localStorage.setItem('token', response.data.auth_token)
+        console.log('localstorage set!')
         store.commit('LOGIN_USER')
-        this.router.push('/')
+        this.$router.push('/home')
       }, () => {
         this.infoError = true
         this.loader = false

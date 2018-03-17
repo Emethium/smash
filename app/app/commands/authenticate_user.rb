@@ -12,7 +12,7 @@ class AuthenticateUser
 
     private
     
-    attr_accessor :email, :password
+    attr_accessor :username, :password
     def user
         user = User.find_by_username(username)
         return user if user && user.authenticate(password)

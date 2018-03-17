@@ -58,6 +58,7 @@
 <script>
 import MainChart from './MainChart.vue'
 import axios from 'axios'
+import store from '@/store'
 
 const MONTH_NAMES = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho',
   'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
@@ -104,8 +105,14 @@ export default {
       }
     }
   },
+  beforeCreate () {
+    console.log(store.state.isLogged)
+    if (!store.state.isLogged) {
+      this.$router.push('/login')
+    }
+  },
   created () {
-    axios.get(`/api/v1/home`).then(
+    axios.get(`/api/v1/home`, {headers: {Authorization: localStorage.getItem('token')}}).then(
       response => {
         this.loading = true
         this.costumer_number = response.data.data.total_costumer_number
