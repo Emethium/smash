@@ -19,7 +19,6 @@
     },
     created () {
       this.username = localStorage.getItem('username')
-      console.log('Im at the header' + localStorage.getItem('username'))
     },
     methods: {
       logout () {

@@ -26,10 +26,6 @@
         username: ''
       }
     },
-    beforeCreate () {
-      this.username = localStorage.getItem('username')
-      console.log(localStorage.getItem('username'))
-    },
     methods: {
       sidebarToggle (e) {
         e.preventDefault()

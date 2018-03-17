@@ -106,7 +106,6 @@ export default {
     }
   },
   beforeCreate () {
-    console.log(store.state.isLogged)
     if (!store.state.isLogged) {
       this.$router.push('/login')
     }
