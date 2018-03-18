@@ -36,12 +36,32 @@
                         </b-form-select>
                     </b-form-group>
                     <b-form-group>
-                        <label for="plate">Placa do veículo:</label>
-                        <b-form-input v-model="plate" type="text" id="plate" placeholder="Insira a placa do veículo"></b-form-input>
+                        <label for="plate">Placa do equipamento:</label>
+                        <autocomplete
+                            ref="autocomplete"
+                            id="plate"
+                            :showNoResults="false"
+                            :source="vehicles"
+                            results-property="plate"
+                            :results-display="formattedDisplay"
+                            @selected="setAttributes"
+                            input-class="vehicle"
+                            placeholder="Entre com a placa do equipamento">
+                        </autocomplete>
                     </b-form-group>
                     <b-form-group>
-                        <label for="client">Nome do Cliente ou Empresa contratante:</label>
-                        <b-form-input v-model="client" type="text" id="client" placeholder="Insira o nome aqui"></b-form-input>
+                      <label for="name"><strong>Nome do Cliente ou Empresa Contratante:</strong></label>
+                      <autocomplete
+                        ref="clientComplete"
+                        id="clientComplete"
+                        :showNoResults="false"
+                        :source="clients"
+                        results-property="name"
+                        :results-display="formattedDisplayClient"
+                        @selected="setClientName"
+                        input-class="name"
+                        placeholder="Nome do Cliente ou Empresa Contratante">
+                      </autocomplete>
                     </b-form-group>
                     <b-form-group>
                         <b-form>
@@ -84,9 +104,13 @@
 
 <script>
 import axios from 'axios'
+import Autocomplete from 'vuejs-auto-complete'
 
 export default {
   name: 'serviceEdit',
+  components: {
+    Autocomplete
+  },
   data () {
     return {
       kind: '',
@@ -141,6 +165,8 @@ export default {
         this.$data.cost = response.data.data.cost
         this.$data.done_at = response.data.data.done_at
         this.$data.next_service = response.data.data.next_service
+        this.$refs.clientComplete.display = response.data.data.costumer
+        this.$refs.autocomplete.display = response.data.data.equipment
       }).catch(e => { this.errors.push(e) })
   },
   methods: {
@@ -154,6 +180,18 @@ export default {
     countDownChanged (dismissCountDown) {
       this.dismissCountDown = dismissCountDown
     },
+    formattedDisplayClient (client) {
+      return client.name
+    },
+    formattedDisplay (result) {
+      return result.plate
+    },
+    setAttributes (vehicle) {
+      this.$data.plate = vehicle.selectedObject.plate
+    },
+    setClientName (client) {
+      this.$data.client = client.selectedObject.name
+    },
     showAlert () {
       this.dismissCountDown = this.dismissSecs
     },
@@ -165,6 +203,7 @@ export default {
       this.$data.cost = ''
       this.$data.done_at = ''
       this.$data.next_service = ''
+      this.$refs.clientComplete.clearValues()
     },
     notifyUser () {
       this.goToTop()
