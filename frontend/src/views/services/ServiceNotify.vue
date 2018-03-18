@@ -275,7 +275,6 @@ export default {
       })
     },
     clearText () {
-      console.log(this.done_at)
       this.$data.kind = ''
       this.$data.company = ''
       this.$data.client = ''
@@ -309,7 +308,6 @@ export default {
       return newArray
     },
     goToEdit (id) {
-      console.log('trying to edit service with id -> ' + id)
       this.$router.push({path: `/services/edit/${id}`})
     },
     submitSearch () {
@@ -333,11 +331,17 @@ export default {
       }).then(response => {
         this.$data.services = response.data.data
         this.$data.services = this.removeDuplicates(this.$data.services, 'costumer')
-        console.log(this.$data.services)
       }).then(this.showList())
     },
     reverseString (s) {
       return s.split('').reverse().join('')
+    },
+    sendEmails () {
+      let self = this
+      this.services.forEach(function (service) {
+        var email = self.clients.find(c => c.name === service.costumer).email
+        console.log(email)
+      })
     },
     createQueryPdf () {
       var doc = new JsPDF()
