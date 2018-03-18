@@ -85,9 +85,9 @@ export default {
           icon: 'icon-magnifier'
         },
         {
-          name: 'Histórico de serviços',
-          url: '/services/service-history',
-          icon: 'fa fa-hourglass-o fa-lg mt-2'
+          name: 'Notificar Clientes',
+          url: '/services/send-email',
+          icon: 'fa fa-envelope-open-o fa-lg mt-2'
         },
         {
           name: 'Submeter novo serviço',

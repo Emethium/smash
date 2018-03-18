@@ -42,7 +42,7 @@ import ServiceSearch from '@/views/services/ServiceSearch'
 import ServiceTypeForm from '@/views/services/ServiceTypeForm'
 import ServiceTypeList from '@/views/services/ServiceTypeList'
 import ServiceForm from '@/views/services/ServiceForm'
-import ServiceHistory from '@/views/services/ServiceHistory'
+import ServiceNotify from '@/views/services/ServiceNotify'
 import ServiceTypeEdit from '@/views/services/ServiceTypeEdit'
 import ServiceEdit from '@/views/services/ServiceEdit'
 
@@ -206,9 +206,9 @@ export default new Router({
               component: ServiceTypeList
             },
             {
-              path: 'service-history',
-              name: 'Histórico de Serviços realizados',
-              component: ServiceHistory
+              path: 'send-email',
+              name: 'Notificação de Clientes',
+              component: ServiceNotify
             },
             {
               path: 'type-edit/:id',
