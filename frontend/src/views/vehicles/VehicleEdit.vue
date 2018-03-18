@@ -28,11 +28,20 @@
                                 <b-form-input v-model="control" type="text" class="form-control-warning" id="control"></b-form-input>
                             </b-form-group>
                         </b-form>
-                        <b-form validated novalidate>
-                            <b-form-group label-for="proprietary" label="Nome do proprietário:">
-                                <b-form-input v-model="proprietary" type="text" class="form-control-warning" id="proprietary"></b-form-input>
-                            </b-form-group>
-                        </b-form>
+                        <b-form-group>
+                          <label for="name"><strong>Nome do Cliente ou Empresa Contratante:</strong></label>
+                          <autocomplete
+                            ref="clientComplete"
+                            id="clientComplete"
+                            :showNoResults="false"
+                            :source="clients"
+                            results-property="name"
+                            :results-display="formattedDisplayClient"
+                            @selected="setClientName"
+                            input-class="name"
+                            placeholder="Nome do Cliente ou Empresa Contratante">
+                          </autocomplete>
+                        </b-form-group>
                         <b-form-group
                         label="Tipo de equipamento:"
                         label-for="basicSelect"
@@ -58,12 +67,17 @@
 
 <script>
 import axios from 'axios'
+import Autocomplete from 'vuejs-auto-complete'
 
 export default {
   name: 'vehicleEdit',
+  components: {
+    Autocomplete
+  },
   data () {
     return {
       selected: [],
+      clients: [],
       plate: '',
       chassis: '',
       control: '',
@@ -90,6 +104,12 @@ export default {
         this.$data.control = response.data.data.control_number
         this.$data.proprietary = response.data.data.proprietary
         this.$data.kind = response.data.data.kind
+        this.$refs.clientComplete.display = response.data.data.proprietary
+      }).catch(e => { this.errors.push(e) })
+    axios.get(`/api/v1/costumers`, {headers: {Authorization: localStorage.getItem('token')}}).then(
+      response => {
+        this.loading = true
+        this.$data.clients = response.data.data
       }).catch(e => { this.errors.push(e) })
   },
   methods: {
@@ -99,6 +119,12 @@ export default {
         var y = b[key]
         return ((x < y) ? -1 : ((x > y) ? 1 : 0))
       })
+    },
+    formattedDisplayClient (client) {
+      return client.name
+    },
+    setClientName (client) {
+      this.$data.proprietary = client.selectedObject.name
     },
     countDownChanged (dismissCountDown) {
       this.dismissCountDown = dismissCountDown
@@ -112,6 +138,7 @@ export default {
       this.$data.control = ''
       this.$data.proprietary = ''
       this.$data.kind = ''
+      this.$refs.clientComplete.clearValues()
     },
     notifyUser () {
       this.showAlert()
