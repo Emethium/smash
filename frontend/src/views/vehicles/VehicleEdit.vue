@@ -4,7 +4,7 @@
             <b-col md="6" class="mx-auto">
                 <b-card>
                     <div slot="header">
-                        <strong>Edição de Veículo</strong>
+                        <strong>Edição de Equipamento</strong>
                     </div>
                     <b-alert :show="dismissCountDown"
                        variant="success"

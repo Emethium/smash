@@ -4,7 +4,7 @@
             <b-col md="6" class="mx-auto">
                 <b-card>
                     <div slot="header">
-                        <strong>Busca de Veículo </strong>
+                        <strong>Busca de Equipamento </strong>
                         <div class="badge badge-info badge-pill" v-b-popover.hover="'Os campos não preenchidos não serão utilizados na busca!'" title="Atenção!">
                             <span class="fa fa-question"></span>
                         </div>
@@ -20,12 +20,12 @@
                         :results-display="formattedDisplay"
                         @selected="setAttributes"
                         input-class="name"
-                        placeholder="Entre com a placa do veículo">
+                        placeholder="Entre com a placa do equipamento">
                       </autocomplete>
                     </b-form-group>
                     <b-form-group>
                         <label for="postal-code"><strong>Número do Chassis:</strong></label>
-                        <b-form-input v-model="chassis" type="text" id="chassis" placeholder="Entre com o chassis do veículo"></b-form-input>
+                        <b-form-input v-model="chassis" type="text" id="chassis" placeholder="Entre com o chassis do equipamento"></b-form-input>
                     </b-form-group>
                     <b-form-group>
                         <label for="postal-code"><strong>Número de Patrimônio ou Controle:</strong></label>

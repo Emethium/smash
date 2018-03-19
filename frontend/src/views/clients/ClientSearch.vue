@@ -82,6 +82,7 @@
 import axios from 'axios'
 import Autocomplete from 'vuejs-auto-complete'
 import JsPDF from 'jspdf'
+import store from '@/store'
 
 export default {
   name: 'clientSearch',
@@ -107,6 +108,11 @@ export default {
         this.loading = true
         this.autoCompleteData = response.data.data
       }).catch(e => { this.errors.push(e) })
+  },
+  beforeCreate () {
+    if (!store.state.isLogged) {
+      this.$router.push('/login')
+    }
   },
   methods: {
     clearText () {

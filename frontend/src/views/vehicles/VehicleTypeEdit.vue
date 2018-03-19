@@ -4,7 +4,7 @@
             <b-col md="6" class="mx-auto">
                 <b-card>
                     <div slot="header">
-                        <strong>Editar tipo de veículo</strong>
+                        <strong>Editar tipo de equipamento</strong>
                     </div>
                     <b-alert :show="dismissCountDown"
                        variant="success"
@@ -14,7 +14,7 @@
                     </b-alert>
                     <b-form-group>
                         <b-form validated novalidate>
-                            <b-form-group label-for="kind" label="Alterar nome do tipo de veículo:">
+                            <b-form-group label-for="kind" label="Alterar nome do tipo de equipamento:">
                                 <b-form-input v-model="kind" type="text" class="form-control-warning" id="kind"></b-form-input>
                             </b-form-group>
                         </b-form>

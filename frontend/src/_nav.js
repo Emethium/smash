@@ -36,7 +36,7 @@ export default {
       icon: 'fa fa-automobile fa-lg mt-2',
       children: [
         {
-          name: 'Buscar veículo',
+          name: 'Buscar equipamento',
           url: '/vehicles/vehicle-search',
           icon: 'icon-magnifier'
         },

@@ -4,23 +4,23 @@
             <b-col md="6" class="mx-auto">
                 <b-card>
                     <div slot="header">
-                        <strong>Cadastro de novo tipo de veículo </strong>
+                        <strong>Cadastro de novo tipo de equipamento </strong>
                     </div>
                     <b-alert :show="dismissCountDown"
                        variant="success"
                        @dismissed="dismissCountdown=0"
                        @dismiss-count-down="countDownChanged">
-                       Tipo de veículo cadastrado com sucesso!
+                       Tipo de equipamento cadastrado com sucesso!
                     </b-alert>
                     <b-form-group>
                         <b-form validated novalidate>
                             <b-form-group label-for="kind" label="Novo tipo:">
-                                <b-form-input type="text" v-model="kind" class="form-control-warning" placeholder="Digite o novo tipo de veículo" id="kind" required></b-form-input>
+                                <b-form-input type="text" v-model="kind" class="form-control-warning" placeholder="Digite o novo tipo de equipamento" id="kind" required></b-form-input>
                                 <b-form-valid-feedback>
                                     Tipo inserido! <span class="fa fa-hand-peace-o fa-lg mt-2"></span>
                                 </b-form-valid-feedback>
                                 <b-form-invalid-feedback>
-                                    Por favor, insira o novo tipo de veículo <span class="fa fa-frown-o fa-lg mt-2"></span>
+                                    Por favor, insira o novo tipo de equipamento <span class="fa fa-frown-o fa-lg mt-2"></span>
                                 </b-form-invalid-feedback>
                             </b-form-group>
                         </b-form>
