@@ -43,6 +43,7 @@
 
 <script>
 import axios from 'axios'
+import store from '@/store'
 
 export default {
   name: 'clientEdit',
@@ -67,6 +68,11 @@ export default {
         this.$data.email = response.data.data.email
         console.log('loaded following parameters for edition ->' + this.$data.name + ', ' + this.$data.register_code + ', ' + this.$data.email)
       }).catch(e => { this.errors.push(e) })
+  },
+  beforeCreate () {
+    if (!store.state.isLogged) {
+      this.$router.push('/')
+    }
   },
   methods: {
     countDownChanged (dismissCountDown) {

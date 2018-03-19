@@ -6,10 +6,16 @@
 
 <script>
 import cTable from './ServiceTypeTable.vue'
+import store from '@/store'
 
 export default {
   name: 'serviceTypeList',
-  components: {cTable}
+  components: {cTable},
+  beforeCreate () {
+    if (!store.state.isLogged) {
+      this.$router.push('/login')
+    }
+  }
 }
 </script>
 

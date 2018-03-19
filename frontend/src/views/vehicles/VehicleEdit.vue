@@ -68,6 +68,7 @@
 <script>
 import axios from 'axios'
 import Autocomplete from 'vuejs-auto-complete'
+import store from '@/store'
 
 export default {
   name: 'vehicleEdit',
@@ -87,6 +88,11 @@ export default {
       dismissSecs: 3,
       dismissCountDown: 0,
       showDismissibleAlert: false
+    }
+  },
+  beforeCreate () {
+    if (!store.state.isLogged) {
+      this.$router.push('/')
     }
   },
   created () {

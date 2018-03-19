@@ -37,6 +37,7 @@
 
 <script>
 import axios from 'axios'
+import store from '@/store'
 
 export default {
   name: 'vehicleTypeForm',
@@ -46,6 +47,11 @@ export default {
       dismissSecs: 2.005,
       dismissCountDown: 0,
       showDismissibleAlert: false
+    }
+  },
+  beforeCreate () {
+    if (!store.state.isLogged) {
+      this.$router.push('/')
     }
   },
   methods: {

@@ -190,6 +190,7 @@
 import axios from 'axios'
 import Autocomplete from 'vuejs-auto-complete'
 import JsPDF from 'jspdf'
+import store from '@/store'
 
 export default {
   name: 'serviceNotify',
@@ -221,6 +222,11 @@ export default {
       currentPage: 1,
       perPage: 6,
       totalRows: 0
+    }
+  },
+  beforeCreate () {
+    if (!store.state.isLogged) {
+      this.$router.push('/')
     }
   },
   created () {

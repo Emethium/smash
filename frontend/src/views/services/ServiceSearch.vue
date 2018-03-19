@@ -183,6 +183,7 @@
 import axios from 'axios'
 import Autocomplete from 'vuejs-auto-complete'
 import JsPDF from 'jspdf'
+import store from '@/store'
 
 export default {
   name: 'serviceSearch',
@@ -209,6 +210,11 @@ export default {
       clients: [],
       services: [],
       result: false
+    }
+  },
+  beforeCreate () {
+    if (!store.state.isLogged) {
+      this.$router.push('/')
     }
   },
   created () {

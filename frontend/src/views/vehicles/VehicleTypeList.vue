@@ -6,10 +6,16 @@
 
 <script>
 import cTable from './VehicleTypeTable.vue'
+import store from '@/store'
 
 export default {
   name: 'vehicleTypeList',
-  components: {cTable}
+  components: {cTable},
+  beforeCreate () {
+    if (!store.state.isLogged) {
+      this.$router.push('/')
+    }
+  }
 }
 </script>
 

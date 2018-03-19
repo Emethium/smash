@@ -31,6 +31,8 @@
 
 <script>
 import axios from 'axios'
+import store from '@/store'
+
 export default {
   name: 'vehicleTypeEdit',
   data () {
@@ -49,6 +51,11 @@ export default {
         this.loading = true
         this.kind = response.data.data.kind
       }).catch(e => { this.errors.push(e) })
+  },
+  beforeCreate () {
+    if (!store.state.isLogged) {
+      this.$router.push('/')
+    }
   },
   methods: {
     countDownChanged (dismissCountDown) {

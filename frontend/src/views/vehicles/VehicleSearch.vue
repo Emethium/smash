@@ -101,6 +101,7 @@
 import axios from 'axios'
 import Autocomplete from 'vuejs-auto-complete'
 import JsPDF from 'jspdf'
+import store from '@/store'
 
 export default {
   name: 'vehicleSearch',
@@ -119,6 +120,11 @@ export default {
       proprietary: '',
       kinds: '',
       result: false
+    }
+  },
+  beforeCreate () {
+    if (!store.state.isLogged) {
+      this.$router.push('/')
     }
   },
   created () {

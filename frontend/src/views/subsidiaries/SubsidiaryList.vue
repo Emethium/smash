@@ -6,10 +6,16 @@
 
 <script>
 import cTable from './SubsidiaryTable.vue'
+import store from '@/store'
 
 export default {
   name: 'subsidiaryList',
-  components: {cTable}
+  components: {cTable},
+  beforeCreate () {
+    if (!store.state.isLogged) {
+      this.$router.push('/')
+    }
+  }
 }
 </script>
 

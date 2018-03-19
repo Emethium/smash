@@ -111,7 +111,7 @@ export default {
   },
   beforeCreate () {
     if (!store.state.isLogged) {
-      this.$router.push('/login')
+      this.$router.push('/')
     }
   },
   methods: {

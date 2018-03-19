@@ -61,6 +61,7 @@
 
 <script>
 import axios from 'axios'
+import store from '@/store'
 
 export default {
   name: 'clientFormPhysical',
@@ -73,6 +74,11 @@ export default {
       dismissSecs: 3,
       dismissCountDown: 0,
       showDismissibleAlert: false
+    }
+  },
+  beforeCreate () {
+    if (!store.state.isLogged) {
+      this.$router.push('/')
     }
   },
   methods: {

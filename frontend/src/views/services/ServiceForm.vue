@@ -94,6 +94,7 @@
 <script>
 import axios from 'axios'
 import Autocomplete from 'vuejs-auto-complete'
+import store from '@/store'
 
 export default {
   name: 'serviceForm',
@@ -116,6 +117,11 @@ export default {
       dismissCountDown: 0,
       showDismissibleAlert: false,
       loading: false
+    }
+  },
+  beforeCreate () {
+    if (!store.state.isLogged) {
+      this.$router.push('/')
     }
   },
   created () {
