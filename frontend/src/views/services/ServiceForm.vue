@@ -49,8 +49,18 @@
                         </autocomplete>
                     </b-form-group>
                     <b-form-group>
-                        <label for="client">Nome do Cliente ou Empresa contratante:</label>
-                        <b-form-input v-model="client" type="text" id="client" placeholder="Insira o nome aqui"></b-form-input>
+                      <label for="name"><strong>Nome do Cliente ou Empresa Contratante:</strong></label>
+                      <autocomplete
+                        ref="clientComplete"
+                        id="clientComplete"
+                        :showNoResults="false"
+                        :source="clients"
+                        results-property="name"
+                        :results-display="formattedDisplayClient"
+                        @selected="setClientName"
+                        input-class="name"
+                        placeholder="Nome do Cliente ou Empresa Contratante">
+                      </autocomplete>
                     </b-form-group>
                     <b-form-group>
                         <b-form>
@@ -113,6 +123,7 @@ export default {
       kinds: [],
       companies: [],
       vehicles: [],
+      clients: [],
       dismissSecs: 3,
       dismissCountDown: 0,
       showDismissibleAlert: false,
@@ -143,6 +154,12 @@ export default {
         this.$data.vehicles = response.data.data
         this.$data.vehicles = this.sortByKey(this.$data.vehicles, 'plate')
       }).catch(e => { this.errors.push(e) })
+    axios.get(`/api/v1/costumers`, {headers: {Authorization: localStorage.getItem('token')}}).then(
+      response => {
+        this.loading = true
+        this.$data.clients = response.data.data
+        this.$data.clients = this.sortByKey(this.$data.clients, 'name')
+      }).catch(e => { this.errors.push(e) })
   },
   methods: {
     countDownChanged (dismissCountDown) {
@@ -150,6 +167,12 @@ export default {
     },
     formattedDisplay (result) {
       return result.plate
+    },
+    formattedDisplayClient (client) {
+      return client.name
+    },
+    setClientName (client) {
+      this.$data.client = client.selectedObject.name
     },
     setAttributes (vehicle) {
       this.$data.plate = vehicle.selectedObject.plate
@@ -179,6 +202,7 @@ export default {
       this.$data.done_at = ''
       this.$data.next_service = ''
       this.$refs.autocomplete.clearValues()
+      this.$refs.clientComplete.clearValues()
       console.log('cleared all entry text fields')
     },
     sendData () {
