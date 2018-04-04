@@ -54,6 +54,9 @@
                             </b-form-select>
                         </b-form-group>
                     </b-form-group>
+                    <b-form-group>
+                      <b-button v-on:click="debilitate()" style="display: block; margin: 0 auto;" type="reset" size="md" variant="danger"><i class="fa fa-ban"></i> DAR BAIXA</b-button>
+                    </b-form-group>
                     <div slot="footer">
                         <b-button v-on:click="goBackNow()"  type="submit" size="sm" variant="danger"><i class="fa fa-close"></i> Voltar</b-button>
                         <b-button v-on:click="clearText()" type="reset" size="sm" variant="warning"><i class="fa fa-ban"></i> Apagar campos</b-button>
@@ -85,6 +88,7 @@ export default {
       proprietary: '',
       kind: '',
       kinds: [],
+      id: '',
       dismissSecs: 3,
       dismissCountDown: 0,
       showDismissibleAlert: false
@@ -110,6 +114,7 @@ export default {
         this.$data.control = response.data.data.control_number
         this.$data.proprietary = response.data.data.proprietary
         this.$data.kind = response.data.data.kind
+        this.$data.id = response.data.data.id
         this.$refs.clientComplete.display = response.data.data.proprietary
       }).catch(e => { this.errors.push(e) })
     axios.get(`/api/v1/costumers`, {headers: {Authorization: localStorage.getItem('token')}}).then(
@@ -158,6 +163,12 @@ export default {
     },
     goBackNow () {
       this.$router.go(-1)
+    },
+    debilitate () {
+      axios.get(`/api/v1/equipments/debilitate/${this.id}`, {headers: {Authorization: localStorage.getItem('token')}}).then(
+        response => {
+          console.log(response)
+        }).catch(e => { this.errors.push(e) }).then(this.goBack())
     },
     updateData () {
       const id = this.$route.params.id

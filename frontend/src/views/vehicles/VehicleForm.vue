@@ -168,7 +168,8 @@ export default {
         chassis: this.$data.chassis,
         control_number: this.$data.control,
         proprietary: this.$data.costumer,
-        kind: this.$data.kind
+        kind: this.$data.kind,
+        activated: true
       }, {headers: {Authorization: localStorage.getItem('token')}}).then(response => {}).catch(e => {
         this.errors.push(e)
       }).then(this.showAlert())

@@ -9,8 +9,8 @@ Rails.application.routes.draw do
       get 'costumers/search', to: 'costumers#search'
       get 'equipments/search', to: 'equipments#search'
       get 'services/search', to: 'services#search'
-      get 'equipments/debilitate', to: 'equipments#debilitate'
-      get 'equipments/revive', to: 'equipments#revive'
+      get 'equipments/debilitate/:id', to: 'equipments#debilitate'
+      get 'equipments/revive/:id', to: 'equipments#revive'
       post 'authenticate', to: 'authentication#authenticate'
   		resources :companies
       resources :costumers
