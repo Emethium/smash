@@ -1,7 +1,7 @@
 <template>
 	<!-- Credits for the Gameboy CSS goes to Red X at https://www.freecodecamp.com/llredxll -->
     <div class="wrapper">
-		<b-col md="7" class="mx-auto">
+		<b-col md="8" class="mx-auto">
 			<b-card header="Sobre" border-variant="info">
 				<link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
 				<div class="container-fluid">
@@ -48,10 +48,11 @@ a:hover {
 
 #bezel {
   margin-bottom:50px;
-  border-radius: 15px 15px 65px 15px; 
-  padding:5px 25px 15px 15px;
+  border-radius: 0.9375em 0.9375em 4.0625em 0.9375em; 
+  padding:0.3125em 1.5625em 0.9375em 0.9375em;
   background-color:#666874;
-  width:400px;
+  width:28em;
+  position: relative;
 }
 
 #credit {
@@ -127,3 +128,10 @@ a:hover {
   transform: rotate(35deg);
 }
 </style>
+
+<script>
+export default {
+  created () {
+  }
+}
+</script>
