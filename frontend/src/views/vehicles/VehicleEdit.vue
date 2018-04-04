@@ -55,7 +55,11 @@
                         </b-form-group>
                     </b-form-group>
                     <b-form-group>
-                      <b-button v-on:click="debilitate()" style="display: block; margin: 0 auto;" type="reset" size="md" variant="danger"><i class="fa fa-ban"></i> DAR BAIXA</b-button>
+                      <b-modal title="Confirmação de operação" class="modal-danger" v-model="exclusionModal" @ok="debilitate()" ok-variant="danger">
+                        <strong> Você têm certeza que quer dar baixa nesse registro?
+                          Essa operação não pode ser desfeita depois.</strong>
+                      </b-modal>
+                      <b-button @click="exclusionModal = true" style="display: block; margin: 0 auto;" type="reset" size="md" variant="danger"><i class="fa fa-exclamation-triangle"></i> DAR BAIXA</b-button>
                     </b-form-group>
                     <div slot="footer">
                         <b-button v-on:click="goBackNow()"  type="submit" size="sm" variant="danger"><i class="fa fa-close"></i> Voltar</b-button>
@@ -91,7 +95,8 @@ export default {
       id: '',
       dismissSecs: 3,
       dismissCountDown: 0,
-      showDismissibleAlert: false
+      showDismissibleAlert: false,
+      exclusionModal: false
     }
   },
   beforeCreate () {
@@ -168,7 +173,7 @@ export default {
       axios.get(`/api/v1/equipments/debilitate/${this.id}`, {headers: {Authorization: localStorage.getItem('token')}}).then(
         response => {
           console.log(response)
-        }).catch(e => { this.errors.push(e) }).then(this.goBack())
+        }).catch(e => { this.errors.push(e) }).then(this.goBackNow())
     },
     updateData () {
       const id = this.$route.params.id
