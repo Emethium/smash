@@ -27,7 +27,7 @@
                 </div> <!-- screen -->
               </div><!-- Screen and power led -->
               </div><!-- inner container -->
-              <p id="credit" class="text-center"><strong>Nintendo Gameboy</strong>
+              <p id="credit" class="text-center"><strong>Vago Nikoboy</strong>
               </p>
           </div><!---Bezel Container -->
 				</div><!---Main gb body/container -->

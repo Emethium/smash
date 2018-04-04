@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180317152812) do
+ActiveRecord::Schema.define(version: 20180404214812) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20180317152812) do
     t.string "control_number"
     t.string "proprietary"
     t.string "kind"
+    t.boolean "activated"
   end
 
   create_table "equipment_types", force: :cascade do |t|
