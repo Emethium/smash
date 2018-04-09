@@ -11,6 +11,8 @@ Rails.application.routes.draw do
       get 'services/search', to: 'services#search'
       get 'equipments/debilitate/:id', to: 'equipments#debilitate'
       get 'equipments/revive/:id', to: 'equipments#revive'
+      # get 'notify', to: 'notifications#send'
+      get 'notify/welcome', to: 'notifications#welcome'
       post 'authenticate', to: 'authentication#authenticate'
   		resources :companies
       resources :costumers

@@ -230,6 +230,7 @@ export default {
     }
   },
   created () {
+    console.log('Entering new domains...')
     axios.get(`/api/v1/service_types`, {headers: {Authorization: localStorage.getItem('token')}}).then(
       response => {
         this.loading = true
@@ -343,11 +344,18 @@ export default {
       return s.split('').reverse().join('')
     },
     sendEmails () {
+      /*
       let self = this
       this.services.forEach(function (service) {
         var email = self.clients.find(c => c.name === service.costumer).email
         console.log(email)
       })
+      */
+      console.log('IM TRYING TO SEND EMAILS')
+      axios.get(`/api/v1/notify/welcome`, {headers: {Authorization: localStorage.getItem('token')}}).then(
+        response => {
+          console.log(response)
+        }).catch(e => { this.errors.push(e) })
     },
     createQueryPdf () {
       var doc = new JsPDF()
