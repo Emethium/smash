@@ -21,7 +21,7 @@
     "@websanova/vue-auth": "^2.21.3-beta",
     "axios": "^0.18.0",
     "bootstrap": "4.0.0",
-    "bootstrap-vue": "1.4.1",
+    "bootstrap-vue": "2.0.0",
     "chart.js": "2.7.1",
     "flag-icon-css": "2.9.0",
     "font-awesome": "^4.7.0",
