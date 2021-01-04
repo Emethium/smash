@@ -19,7 +19,7 @@
   },
   "dependencies": {
     "@websanova/vue-auth": "^2.21.3-beta",
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "bootstrap": "4.0.0",
     "bootstrap-vue": "1.4.1",
     "chart.js": "2.7.1",
